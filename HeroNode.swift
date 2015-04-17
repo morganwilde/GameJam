@@ -70,6 +70,8 @@ class HeroNode: SKSpriteNode {
         torsoNode.addChild(armRightNode)
         
         addChild(torsoNode)
+        
+        physicsBody = SKPhysicsBody(rectangleOfSize: size, center: CGPoint(x: size.width/2, y: size.height/2))
     }
     
     required init?(coder aDecoder: NSCoder) {

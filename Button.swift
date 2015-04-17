@@ -30,7 +30,6 @@ class Button : Utility {
         anchorPoint = CGPointMake(0, 0)
         
         // Physics
-        println(frame)
         physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
         physicsBody!.categoryBitMask = Mask.SCENE
         physicsBody!.contactTestBitMask = Mask.SCENE | Mask.HERO

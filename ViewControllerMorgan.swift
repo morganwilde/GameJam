@@ -13,23 +13,15 @@ class ViewControllerMorgan: UIViewController {
     
     @IBOutlet weak var spriteView: SKView!
     
-    var sceneCurrent: SKScene!
-    var heroNode: HeroNode!
+    var sceneCurrent: GameScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneCurrent = SKScene(size: spriteView.frame.size)
-        
-        heroNode = HeroNode(size: CGSize(width: 100, height: 240))
-        heroNode.anchorPoint = CGPoint(x: 0, y: 0)
-        heroNode.position = CGPoint(
-            x: sceneCurrent.size.width/2 - heroNode.size.width/2,
-            y: sceneCurrent.size.height/2 - heroNode.size.height/2)
-        
-        sceneCurrent.addChild(heroNode)
+        sceneCurrent = GameScene(size: spriteView.frame.size)
         
         spriteView.presentScene(sceneCurrent)
+        spriteView.showsPhysics = true
     }
     
 }
