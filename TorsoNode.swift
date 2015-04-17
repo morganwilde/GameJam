@@ -40,6 +40,7 @@ class TorsoNode: BodyPartNode {
     func stateActivateRest() {
         zRotation = 0
     }
+    /*
     func createPhysicsBody() {
         physicsBody = SKPhysicsBody(
             rectangleOfSize: CGSize(width: width, height: height),
@@ -47,4 +48,5 @@ class TorsoNode: BodyPartNode {
         
         physicsBody!.affectedByGravity = false
     }
+*/
 }
