@@ -17,6 +17,7 @@ class MapNode: SKSpriteNode {
     init(_ size: CGSize) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         generateGround()
+        //generateWall()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -27,9 +28,15 @@ class MapNode: SKSpriteNode {
         
     }
     
+    func generateWall(x: Double, count: Int){
+        
+        
+        
+    }
+    
     func generateGround(){
         
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 20; i++){
             self.addChild(createGround(Double(i)*mesurements + mesurements/2, y: mesurements/2, width: mesurements, height: mesurements))
         }
         
@@ -42,11 +49,10 @@ class MapNode: SKSpriteNode {
         groundBlock.position = CGPoint(x: x, y: y)
         groundBlock.physicsBody = SKPhysicsBody(rectangleOfSize: groundBlock.frame.size, center: CGPoint(x: 0.5, y: 0.5))
         groundBlock.physicsBody?.dynamic = false
-//        groundBlock.physicsBody?.categoryBitMask = Mask.
-//        groundBlock.physicsBody?.collisionBitMask = PhysicsCategory.All
-//        groundBlock.physicsBody?.contactTestBitMask = PhysicsCategory.Hero
+        groundBlock.physicsBody?.categoryBitMask = Mask.GROUND
+        groundBlock.physicsBody?.collisionBitMask = Mask.HERO
+        groundBlock.physicsBody?.contactTestBitMask = Mask.HERO
         groundBlock.physicsBody?.affectedByGravity = false
-        groundBlock.zPosition = 100
         groundBlock.physicsBody?.allowsRotation = false
         
         return groundBlock
