@@ -24,7 +24,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="spriteView" destination="OUy-8r-K5G" id="D4x-3w-Tn0"/>
+                        <outlet property="spriteView" destination="OUy-8r-K5G" id="Nta-uS-KyQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
