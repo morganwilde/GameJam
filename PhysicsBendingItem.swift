@@ -9,7 +9,23 @@
 import SpriteKit
 
 class PhysicsBendingItem : Item{
+    
+
+    
     var durationOfEffect:Double = 0
+    var effect: Effect?
+
     
+    init(desiredEffect:Effect) {
+        super.init()
+        effect = desiredEffect
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
+    func cast(object:SKNode){
+        
+    }
 }
