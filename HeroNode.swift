@@ -39,39 +39,14 @@ enum MovementDirection {
 }
 
 class HeroNode: SKSpriteNode {
-    //
-    // Properties
-    //
-    // Body parts
-//    var headNode: HeadNode
-//    var torsoNode: TorsoNode
-//    var armLeftNode: ArmNode
-//    var armRightNode: ArmNode
-//    var legLeftNode: LegNode
-//    var legRightNode: LegNode
     
-    init(size: CGSize) {
-        // Body part nodes
-//        headNode        = HeadNode(bodySize: size)
-//        torsoNode       = TorsoNode(bodySize: size)
-//        armLeftNode     = ArmNode(bodySize: size, side: .Left)
-//        armRightNode    = ArmNode(bodySize: size, side: .Right)
-//        legLeftNode     = LegNode(bodySize: size, side: .Left)
-//        legRightNode    = LegNode(bodySize: size, side: .Right)
-        
+    init() {
         let texture = SKTexture(imageNamed: "Hero.png")
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         anchorPoint = CGPoint(x: 0, y: 0)
         
-//        torsoNode.addChild(headNode)
-//        torsoNode.addChild(legLeftNode)
-//        torsoNode.addChild(legRightNode)
-//        torsoNode.addChild(armLeftNode)
-//        torsoNode.addChild(armRightNode)
-//        
-//        addChild(torsoNode)
         physicsBody = SKPhysicsBody(
             rectangleOfSize: frame.size,
             center: CGPoint(x: frame.width/2, y: frame.height/2))
@@ -82,34 +57,14 @@ class HeroNode: SKSpriteNode {
     }
     
     // Methods
-//    func stateActivateRest() {
-//        headNode.stateActivateRest()
-//        torsoNode.stateActivateRest()
-//        armLeftNode.stateActivateRest()
-//        armRightNode.stateActivateRest()
-//        legLeftNode.stateActivateRest()
-//        legRightNode.stateActivateRest()
-//    }
-//    func stateActivatePunch() {
-//        armRightNode.runAction(SKAction.sequence(armRightNode.createStatePunch())) {
-//            self.stateActivateRest()
-//        }
-//    }
-//    func stateActivateKick() {
-//        legRightNode.runAction(SKAction.sequence(legRightNode.createStateKick())) {
-//            self.stateActivateRest()
-//        }
-//    }
-//    func stateMoveInDirection(direction: MovementDirection) {
-//        var movement: SKAction
-//        switch (direction) {
-//        case .Up: movement = SKAction.moveToY(torsoNode.position.y + 10, duration: 0.25)
-//        case .Right: movement = SKAction.moveToX(torsoNode.position.x + 10, duration: 0.25)
-//        case .Bottom: movement = SKAction.moveToY(torsoNode.position.y - 10, duration: 0.25)
-//        case .Left: movement = SKAction.moveToX(torsoNode.position.x - 10, duration: 0.25)
-//        case .Unknown: movement = SKAction()
-//        }
-//        
-//        torsoNode.runAction(movement)
-//    }
+    func moveInDirection(direction: MovementDirection) {
+        var movement: SKAction
+        switch (direction) {
+        case .Right:    movement = SKAction.moveToX(position.x + 100, duration: 0.25)
+        case .Left:     movement = SKAction.moveToX(position.x - 100, duration: 0.25)
+        default:        movement = SKAction()
+        }
+        
+        runAction(movement)
+    }
 }
