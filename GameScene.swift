@@ -58,6 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonGoLeft.actionOnBegan = {
             self.heroNode.runAction(SKAction.moveByX(-100, y: 0, duration: 1))
         }
+        
         buttonGoRight.actionOnBegan = {
             self.heroNode.runAction(SKAction.moveByX(100, y: 0, duration: 1))
         }
