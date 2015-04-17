@@ -53,6 +53,9 @@ class HeroNode: SKSpriteNode {
         physicsBody = SKPhysicsBody(
             rectangleOfSize: frame.size,
             center: CGPoint(x: frame.width/2, y: frame.height/2))
+        physicsBody?.categoryBitMask = Mask.HERO
+        physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,7 +83,7 @@ class HeroNode: SKSpriteNode {
         activatedItem = nil
     }
     func hasItem(item: Item) -> Bool {
-        return item in items
+        return items.contains(item)
     }
     
 }
