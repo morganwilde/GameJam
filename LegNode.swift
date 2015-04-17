@@ -70,6 +70,7 @@ class LegNode: BodyPartNode {
         
         return [rotation, length, lengthReset, rotationReset]
     }
+    /*
     func createPhysicsBody() {
         physicsBody = SKPhysicsBody(
             rectangleOfSize: CGSize(width: width, height: height),
@@ -84,4 +85,5 @@ class LegNode: BodyPartNode {
         physicsBody!.collisionBitMask = 0
         */
     }
+*/
 }

@@ -9,6 +9,17 @@
 import Foundation
 import SpriteKit
 
+struct Mask {
+    static let SCENE        = 0x1 << 1 as UInt32
+    static let HERO         = 0x1 << 1 as UInt32
+    static let UTILITY      = 0x1 << 2 as UInt32
+    static let BUTTON       = 0x1 << 3 as UInt32
+    static let ITEM         = 0x1 << 4 as UInt32
+    static let OBSTACLE     = 0x1 << 5 as UInt32
+    static let GROUND       = 0x1 << 6 as UInt32
+    static let EFFECT       = 0x1 << 7 as UInt32
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var mapNode: MapNode!
@@ -32,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add button
         let buttonNode = Button()
         buttonNode.position = CGPoint(x: 300, y: 0)
-        mapNode.addChild(buttonNode)
+        //mapNode.addChild(buttonNode)
         
         // Add wall
         wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
@@ -90,10 +101,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         if let bodyA = contact.bodyA as? Contactable {
-            bodyA.didContact(contact)
+            bodyA.didBeginContact(contact)
         }
         if let bodyB = contact.bodyB as? Contactable {
-            bodyB.didContact(contact)
+            bodyB.didBeginContact(contact)
+        }
+    }
+    func didEndContact(contact: SKPhysicsContact) {
+        if let bodyA = contact.bodyA as? Contactable {
+            bodyA.didEndContact(contact)
+        }
+        if let bodyB = contact.bodyB as? Contactable {
+            bodyB.didEndContact(contact)
         }
     }
 }

@@ -70,6 +70,7 @@ class ArmNode: BodyPartNode {
         
         return [rotation, length, lengthReset, rotationReset]
     }
+    /*
     func createPhysicsBody() {
         physicsBody = SKPhysicsBody(
             rectangleOfSize: CGSize(width: width, height: height),
@@ -79,4 +80,5 @@ class ArmNode: BodyPartNode {
         physicsBody!.pinned = true
         physicsBody!.dynamic = true
     }
+*/
 }

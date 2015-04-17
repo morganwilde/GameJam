@@ -9,15 +9,6 @@
 import Foundation
 import SpriteKit
 
-struct Mask {
-    static let SCENE        = 0x1 << 1 as UInt32
-    static let HERO         = 0x1 << 1 as UInt32
-    static let UTILITY      = 0x1 << 2 as UInt32
-    static let BUTTON       = 0x1 << 3 as UInt32
-    static let ITEM         = 0x1 << 4 as UInt32
-    static let OBSTACLE     = 0x1 << 5 as UInt32
-}
-
 class Button : Utility {
     
     struct Const {
@@ -39,7 +30,6 @@ class Button : Utility {
         anchorPoint = CGPointMake(0, 0)
         
         // Physics
-        println(frame)
         physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
         physicsBody!.categoryBitMask = Mask.SCENE
         physicsBody!.contactTestBitMask = Mask.SCENE | Mask.HERO
