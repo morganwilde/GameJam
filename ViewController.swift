@@ -13,9 +13,14 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var spriteView: SKView!
     
+    var sceneCurrent: SKScene
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        spriteView = 
+        
+        spriteView.presentScene(sceneCurrent)
     }
 
 }
