@@ -14,6 +14,8 @@ struct Mask {
     static let HERO         = 0x1 << 1 as UInt32
     static let UTILITY      = 0x1 << 2 as UInt32
     static let BUTTON       = 0x1 << 3 as UInt32
+    static let ITEM         = 0x1 << 4 as UInt32
+    static let OBSTACLE     = 0x1 << 5 as UInt32
 }
 
 class Button : Utility {
