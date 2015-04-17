@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add hero
         heroNode = HeroNode(size: CGSize(width: 100, height: 240))
         heroNode.anchorPoint = CGPoint(x: 0, y: 0)
-        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 50)
+        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 100)
         mapNode.addChild(heroNode)
         
         // Add button
