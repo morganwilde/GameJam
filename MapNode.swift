@@ -20,7 +20,8 @@ class MapNode: SKSpriteNode {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         //generateGround(0,y: 0,count: 0)
         //generateWall()
-        createLevel1()
+        //createLevel1()
+        createLevel2()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +37,25 @@ class MapNode: SKSpriteNode {
         
         
     }
+    
+    func createLevel2() {
+        
+        var ground = createGround(300, y: 300, width: 50, height: 50)//(1, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: 300, startingPosY: 300)
+        var sprite = randomObj()
+        addChild(ground)
+        addChild(sprite)
+        
+    }
+    
+    func randomObj() -> SKSpriteNode {
+        
+        var sprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: 50,height: 50))
+        sprite.position = CGPoint(x: 200,y: 200)
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 50,height: 50), center: CGPoint(x: 0.5, y: 0.5))
+        //addChild(sprite)
+        return sprite
+    }
+    
     
     func createLevel1(){
         
