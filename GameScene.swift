@@ -41,8 +41,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 300, y: 0)
-        //mapNode.addChild(buttonNode)
+        buttonNode.position = CGPoint(x: 230, y: 50)
+        mapNode.addChild(buttonNode)
         
         // Add wall
         wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
@@ -98,18 +98,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        if let bodyA = contact.bodyA as? Contactable {
+        if let bodyA = contact.bodyA.node as? Contactable {
             bodyA.didBeginContact(contact)
         }
-        if let bodyB = contact.bodyB as? Contactable {
+        if let bodyB = contact.bodyB.node as? Contactable {
             bodyB.didBeginContact(contact)
         }
     }
+    
     func didEndContact(contact: SKPhysicsContact) {
-        if let bodyA = contact.bodyA as? Contactable {
+        if let bodyA = contact.bodyA.node as? Contactable {
             bodyA.didEndContact(contact)
         }
-        if let bodyB = contact.bodyB as? Contactable {
+        if let bodyB = contact.bodyB.node as? Contactable {
             bodyB.didEndContact(contact)
         }
     }

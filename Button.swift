@@ -25,17 +25,18 @@ class Button : Utility {
     
     init() {
         INITIAL_HEIGHT = Const.DEFAULT_HEIGHT
-        super.init(texture: nil, color: SKColor.redColor(),
+        super.init(texture: nil, color: SKColor.blueColor(),
             size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT))
         anchorPoint = CGPointMake(0, 0)
         
         // Physics
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT)))
+        physicsBody?.dynamic = false
         physicsBody!.categoryBitMask = Mask.UTILITY
         physicsBody!.contactTestBitMask = Mask.SCENE | Mask.HERO
         physicsBody!.collisionBitMask = Mask.SCENE | Mask.HERO
         
-        push()
+//        push()
     }
     
     func push() {
@@ -46,8 +47,7 @@ class Button : Utility {
     }
     
     func pop() {
-        let popAction = SKAction.resizeToHeight(INITIAL_HEIGHT,
-            duration: Const.DEFAULT_PUSH_DURATION)
+        let popAction = SKAction.resizeToHeight(INITIAL_HEIGHT, duration: Const.DEFAULT_PUSH_DURATION)
         runAction(popAction)
     }
     
