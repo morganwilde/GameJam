@@ -79,7 +79,9 @@ class HeroNode: SKSpriteNode {
 //            armLeftNode.physicsBody!,
 //            armRightNode.physicsBody!
 //        ])
-        physicsBody = SKPhysicsBody(rectangleOfSize: frame.size, center: CGPoint(x: frame.width/2, y: frame.height/2))
+        physicsBody = SKPhysicsBody(
+            rectangleOfSize: CGSize(width: 100, height: 240),
+            center: CGPoint(x: frame.width/2, y: frame.height/2))
         physicsBody?.affectedByGravity = true
     }
     
