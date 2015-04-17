@@ -23,4 +23,3 @@ class ViewControllerSimas: UIViewController {
     }
     
 }
-

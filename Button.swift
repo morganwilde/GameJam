@@ -12,8 +12,8 @@ import SpriteKit
 class Button : Utility {
     
     struct Const {
-        static let DEFAULT_WIDTH = 100 as CGFloat
-        static let DEFAULT_HEIGHT = 100 as CGFloat
+        static let DEFAULT_WIDTH = 50 as CGFloat
+        static let DEFAULT_HEIGHT = 50 as CGFloat
         static let DEFAULT_PUSH_DURATION = 0.5 as NSTimeInterval
     }
     
@@ -31,12 +31,11 @@ class Button : Utility {
         
         // Physics
         physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT)))
-        physicsBody?.dynamic = false
+        physicsBody?.dynamic = true
         physicsBody!.categoryBitMask = Mask.UTILITY
-        physicsBody!.contactTestBitMask = Mask.SCENE | Mask.HERO
-        physicsBody!.collisionBitMask = Mask.SCENE | Mask.HERO
-        
-//        push()
+        physicsBody!.contactTestBitMask = Mask.HERO
+        physicsBody!.collisionBitMask = Mask.HERO
+        push()
     }
     
     func push() {

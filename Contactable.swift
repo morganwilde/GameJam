@@ -13,3 +13,9 @@ import SpriteKit
     func didBeginContact(contact: SKPhysicsContact)
     func didEndContact(contact: SKPhysicsContact)
 }
+
+extension Array {
+    func contains<T where T : Equatable>(obj: T) -> Bool {
+        return self.filter({$0 as? T == obj}).count > 0
+    }
+}

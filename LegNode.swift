@@ -70,6 +70,11 @@ class LegNode: BodyPartNode {
         
         return [rotation, length, lengthReset, rotationReset]
     }
+    override func createPhysicsBody() {
+        super.createPhysicsBody()
+        
+        physicsBody!.dynamic = false
+    }
     /*
     func createPhysicsBody() {
         physicsBody = SKPhysicsBody(
