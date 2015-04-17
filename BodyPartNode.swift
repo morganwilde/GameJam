@@ -63,6 +63,10 @@ class BodyPartNode: SKSpriteNode {
             rectangleOfSize: CGSize(width: frame.width, height: frame.height),
             center: CGPoint(x: frame.width/2 - anchorPoint.x * frame.width, y: frame.height/2 - anchorPoint.y * frame.height))
         
+        physicsBody?.categoryBitMask = Mask.HERO
+        physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.UTILITY | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.UTILITY | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        
         physicsBody!.affectedByGravity = true
         physicsBody!.pinned = true
         physicsBody!.dynamic = true
