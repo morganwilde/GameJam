@@ -13,8 +13,8 @@ class Utility : SKSpriteNode, Contactable {
     
     func didBeginContact(contact: SKPhysicsContact) {
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
-        case (Mask.HERO, Mask.SCENE): fallthrough
-        case (Mask.SCENE, Mask.HERO):
+        case (Mask.HERO, Mask.UTILITY): fallthrough
+        case (Mask.UTILITY, Mask.HERO):
             println("contact began with  hero")
             return
         default:
@@ -24,8 +24,8 @@ class Utility : SKSpriteNode, Contactable {
     
     func didEndContact(contact: SKPhysicsContact) {
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
-        case (Mask.HERO, Mask.SCENE): fallthrough
-        case (Mask.SCENE, Mask.HERO):
+        case (Mask.HERO, Mask.UTILITY): fallthrough
+        case (Mask.UTILITY, Mask.HERO):
             println("contact ended with hero")
             return
         default:

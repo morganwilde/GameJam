@@ -17,10 +17,9 @@ class ViewControllerSimas: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         sceneCurrent = GameScene(size: spriteView.frame.size)
-        
         spriteView.presentScene(sceneCurrent)
+        spriteView.showsPhysics = true
     }
     
 }
