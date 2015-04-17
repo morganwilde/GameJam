@@ -12,11 +12,13 @@ import SpriteKit
 class MapNode: SKSpriteNode {
     
     
-    let mesurements:Double = 50
+    let mesurmentsGround: Double = 50
+    let mesurmentsWall: Double = 200
+    
 
     init(_ size: CGSize) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
-        generateGround()
+        generateGround(0,y: 0,count: 0)
         //generateWall()
     }
 
@@ -28,16 +30,33 @@ class MapNode: SKSpriteNode {
         
     }
     
-    func generateWall(x: Double, count: Int){
+    func generateWall(x: Double, y: Double, count: Int){
         
         
         
     }
     
-    func generateGround(){
+    var endPoint: Double!
+    var startPoint: Double!
+    
+    func generateGround(x: Double, y: Double, count: Int){ //count = screenwidth
         
-        for(var i = 0; i < 20; i++){
-            self.addChild(createGround(Double(i)*mesurements + mesurements/2, y: mesurements/2, width: mesurements, height: mesurements))
+        createGroundBlock(20, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: 0, startingPosY: 0)
+        
+//        for(var i = 0; i < 20; i++){
+//            
+//            self.addChild(createGround(Double(i)*mesurmentsGround + mesurmentsGround/2, y: mesurmentsGround/2, width: mesurmentsGround, height: mesurmentsGround))
+//            
+//        }
+        
+    }
+    
+    func createGroundBlock(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){
+        
+        for(var i=0; i<blocksCountX; i++){
+            for(var j=0; j<blocksCountY; j++){
+                addChild(createGround(startingPosX + Double(i * blocksCountX) + blockWidth/2, y: startingPosY + Double(j * blocksCountY) + blockHeight/2, width: blockWidth, height: blockHeight))
+            }
         }
         
     }
