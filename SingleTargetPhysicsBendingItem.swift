@@ -10,7 +10,7 @@ import SpriteKit
 
 class SingleTargetPhysicsBendingItem: PhysicsBendingItem {
     
-    override init(parent: SKScene) {
+    override init(parent: SKNode) {
         super.init(parent: parent)
         durationOfEffect = 5
     }

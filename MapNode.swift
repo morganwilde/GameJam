@@ -31,7 +31,7 @@ class MapNode: SKSpriteNode {
     
     func generateGround(){
         
-        for(var i=0;i<10;i++){
+        for(var i = 0; i < 40; i++){
             self.addChild(createGround(Double(i)*mesurements, y: Double(0), width: mesurements, height: mesurements))
         }
         
@@ -48,7 +48,7 @@ class MapNode: SKSpriteNode {
 //        groundBlock.physicsBody?.collisionBitMask = PhysicsCategory.All
 //        groundBlock.physicsBody?.contactTestBitMask = PhysicsCategory.Hero
 //        groundBlock.physicsBody?.affectedByGravity = false
-        groundBlock.zPosition = 100
+        //groundBlock.zPosition = 100
 //        groundBlock.physicsBody?.allowsRotation = false
         //groundBlock.lightingBitMask = ShadowCategory.All
         

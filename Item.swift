@@ -10,9 +10,9 @@ import SpriteKit
 
 class Item : SKSpriteNode{
     
-    var home:SKScene?
+    var home: SKNode?
     
-    init(parent:SKScene){
+    init(parent: SKNode){
         super.init(texture: nil, color: SKColor.redColor(), size: CGSize(width: parent.frame.width / 10, height: parent.frame.height / 10))
         home = parent
         
