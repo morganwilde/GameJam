@@ -17,10 +17,10 @@ class ControlNode: SKSpriteNode {
     init(size: CGSize, color: UIColor, title: String) {
         
         actionOnBegan = {
-            println("OnBegan")
+            return
         }
         actionOnEnded = {
-            println("OnEnded")
+            return
         }
         
         super.init(texture: nil, color: color, size: size)
@@ -44,13 +44,11 @@ class ControlNode: SKSpriteNode {
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
-        println("began")
         actionOnBegan()
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
-        
         actionOnEnded()
     }
 }

@@ -10,26 +10,17 @@ import UIKit
 import SpriteKit
 
 class ViewControllerSimas: UIViewController {
-
+    
     @IBOutlet weak var spriteView: SKView!
     
-    var sceneCurrent: SKScene!
+    var sceneCurrent: GameScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        sceneCurrent = SKScene(size: spriteView.frame.size)
-        
-        
-        
-        sceneCurrent.addChild(Button())
-        
-        
-        
-        
-        
+        sceneCurrent = GameScene(size: spriteView.frame.size)
         spriteView.presentScene(sceneCurrent)
+        spriteView.showsPhysics = true
     }
-
+    
 }
 
