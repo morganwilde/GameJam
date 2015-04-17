@@ -12,11 +12,13 @@ class Item : SKSpriteNode{
     
     
     init(){
-        super.init(texture: nil, color: SKColor.redColor(), size: CGSize(width: 200, height: 200))
+        super.init(texture: SKTexture(imageNamed: "ring.png"), color: SKColor.redColor(), size: CGSize(width: 40, height: 40))
         
         physicsBody = SKPhysicsBody(rectangleOfSize: self.size)
         physicsBody?.restitution = 0
         physicsBody?.dynamic = true
+        
+        userInteractionEnabled = true
         
     }
 

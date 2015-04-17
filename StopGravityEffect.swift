@@ -11,18 +11,29 @@ import SpriteKit
 class StopGravityEffect : Effect {
     
     override func applyEffect(target: SKNode) {
-        target.runAction(SKAction.runBlock({
-            let oldVelocity = target.physicsBody?.velocity
-            let oldAffectedByGravity = target.physicsBody?.affectedByGravity
-            target.physicsBody?.affectedByGravity = false
-
-            target.physicsBody?.velocity = CGVector.zeroVector
+        
+        let oldVelocity = target.physicsBody?.velocity
+        let oldAffectedByGravity = target.physicsBody?.affectedByGravity
+        
+        target.runAction(SKAction.sequence([
+            SKAction.runBlock({
+                target.physicsBody?.affectedByGravity = false
+                
+                target.physicsBody?.velocity = CGVector.zeroVector
+                
+                target.alpha = 0.3
+            }), SKAction.waitForDuration(5),
             
-            SKAction.waitForDuration(self.durationOfEffect as NSTimeInterval)
+            SKAction.runBlock({
+                target.physicsBody?.affectedByGravity = oldAffectedByGravity!
+                
+                target.physicsBody?.velocity = oldVelocity!
+                
+                target.alpha = 1
+            })
             
-            target.physicsBody?.affectedByGravity = oldAffectedByGravity!
-            target.physicsBody?.velocity = oldVelocity!
-        }))
+            
+            ]))
     }
     
 }
