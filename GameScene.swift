@@ -11,9 +11,8 @@ import SpriteKit
 
 struct Mask {
     static let SCENE        = 0x1 << 1 as UInt32
-    static let HERO         = 0x1 << 1 as UInt32
-    static let UTILITY      = 0x1 << 2 as UInt32
-    static let BUTTON       = 0x1 << 3 as UInt32
+    static let HERO         = 0x1 << 2 as UInt32
+    static let UTILITY      = 0x1 << 3 as UInt32
     static let ITEM         = 0x1 << 4 as UInt32
     static let OBSTACLE     = 0x1 << 5 as UInt32
     static let GROUND       = 0x1 << 6 as UInt32
@@ -37,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add hero
         heroNode = HeroNode(size: CGSize(width: 100, height: 240))
         heroNode.anchorPoint = CGPoint(x: 0, y: 0)
-        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 100)
+        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 50)
         mapNode.addChild(heroNode)
         
         // Add button
@@ -75,7 +74,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPoint(x: buttonGoLeft.position.x + buttonGoLeft.size.width + 10, y: 10)
-        
         
         addChild(mapNode)
         
