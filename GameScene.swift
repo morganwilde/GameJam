@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add button
         let buttonNode = Button()
         buttonNode.position = CGPoint(x: 300, y: 0)
-        mapNode.addChild(buttonNode)
+        //mapNode.addChild(buttonNode)
         
         // Add wall
         wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
