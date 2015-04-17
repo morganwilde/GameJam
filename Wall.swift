@@ -28,16 +28,15 @@ class Wall : Obstacle {
         body.dynamic = true
         body.restitution = 0
         body.categoryBitMask = Mask.OBSTACLE
-        body.collisionBitMask = Mask.HERO
-        body.contactTestBitMask = Mask.HERO
+        body.collisionBitMask = Mask.HERO | Mask.GROUND
+        body.contactTestBitMask = Mask.HERO | Mask.GROUND
         
         self.physicsBody = body
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
+    }    
     
     func raise() {
         self.physicsBody?.affectedByGravity = false
