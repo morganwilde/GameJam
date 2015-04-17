@@ -40,12 +40,4 @@ class HeadNode: BodyPartNode {
     func stateActivateRest() {
         zRotation = 0
     }
-    func createPhysicsBody() {
-        physicsBody = SKPhysicsBody(
-            rectangleOfSize: CGSize(width: width, height: height),
-            center: CGPoint(x: width/2 - anchorPoint.x * width, y: height/2 - anchorPoint.y * height))
-        
-        physicsBody!.affectedByGravity = false
-        physicsBody!.pinned = true
-    }
 }
