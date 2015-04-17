@@ -51,6 +51,7 @@ class TorsoNode: BodyPartNode {
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.UTILITY | Mask.ITEM | Mask.SCENE | Mask.GROUND
         
         physicsBody!.affectedByGravity = false
+        physicsBody!.dynamic = false
     }
 
 }
