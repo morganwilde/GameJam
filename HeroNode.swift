@@ -40,6 +40,9 @@ enum MovementDirection {
 
 class HeroNode: SKSpriteNode {
     
+    var items: [Item] = []
+    var activatedItem: Item?
+    
     init() {
         let texture = SKTexture(imageNamed: "Hero.png")
         
@@ -60,11 +63,24 @@ class HeroNode: SKSpriteNode {
     func moveInDirection(direction: MovementDirection) {
         var movement: SKAction
         switch (direction) {
-        case .Right:    movement = SKAction.moveToX(position.x + 100, duration: 0.25)
-        case .Left:     movement = SKAction.moveToX(position.x - 100, duration: 0.25)
+        case .Right:    movement = SKAction.moveByX(100, y: 0, duration: 0.25)
+        case .Left:     movement = SKAction.moveByX(-100, y: 0, duration: 0.25)
         default:        movement = SKAction()
         }
         
         runAction(movement)
     }
+    func addItem(item: Item) {
+        items.append(item)
+    }
+    func activateItem(item: Item) {
+        activatedItem = item
+    }
+    func deactivateItem() {
+        activatedItem = nil
+    }
+    func hasItem(item: Item) -> Bool {
+        return item in items
+    }
+    
 }
