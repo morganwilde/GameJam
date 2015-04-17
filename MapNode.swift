@@ -18,8 +18,9 @@ class MapNode: SKSpriteNode {
 
     init(_ size: CGSize) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
-        generateGround(0,y: 0,count: 0)
+        //generateGround(0,y: 0,count: 0)
         //generateWall()
+        createLevel1()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,12 +37,30 @@ class MapNode: SKSpriteNode {
         
     }
     
+    func createLevel1(){
+        
+        let start: Double = Double(-self.frame.width)
+        let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
+        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall, startingPosY: 0)
+        let end: Double = generateGround(start, y: 0, count: 3)
+        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall, blockHeight: mesurmentsWall, startingPosX: end, startingPosY: 0)
+    }
+    
     var endPoint: Double!
     var startPoint: Double!
     
-    func generateGround(x: Double, y: Double, count: Int){ //count = screenwidth
+    func generateGround(x: Double, y: Double, count: Int) -> Double{ //count = screenwidth
         
-        createGroundBlock(20, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: 0, startingPosY: 0)
+        var pos = x
+        let quantity = Int(self.frame.width) / Int(mesurmentsGround)
+        println(quantity)
+        for(var i=0; i<count; i++){
+            
+            createBlock(quantity, blocksCountY: 1, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: pos, startingPosY: 0)
+            pos += Double(quantity) * Double(mesurmentsGround)
+            
+        }
+        return Double(pos)
         
 //        for(var i = 0; i < 20; i++){
 //            
@@ -51,11 +70,11 @@ class MapNode: SKSpriteNode {
         
     }
     
-    func createGroundBlock(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){
+    func createBlock(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){
         
         for(var i=0; i<blocksCountX; i++){
             for(var j=0; j<blocksCountY; j++){
-                addChild(createGround(startingPosX + Double(i * blocksCountX) + blockWidth/2, y: startingPosY + Double(j * blocksCountY) + blockHeight/2, width: blockWidth, height: blockHeight))
+                addChild(createGround(startingPosX + Double(i) * Double(blockWidth) + blockWidth/2, y: startingPosY + Double(j) * Double(blockHeight) + blockHeight/2, width: blockWidth, height: blockHeight))
             }
         }
         
