@@ -10,5 +10,6 @@ import Foundation
 import SpriteKit
 
 @objc protocol Contactable {
-    func didContact(contact: SKPhysicsContact)
+    func didBeginContact(contact: SKPhysicsContact)
+    func didEndContact(contact: SKPhysicsContact)
 }
