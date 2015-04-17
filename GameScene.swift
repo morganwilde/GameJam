@@ -34,15 +34,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         mapNode = MapNode(size)
         
         // Add hero
-        heroNode = HeroNode(size: CGSize(width: 100, height: 240))
-        heroNode.anchorPoint = CGPoint(x: 0, y: 0)
-        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 50)
+        heroNode = HeroNode()
+        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 100)
         mapNode.addChild(heroNode)
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 300, y: 0)
-        //mapNode.addChild(buttonNode)
+        buttonNode.position = CGPoint(x: 230, y: 50)
+        mapNode.addChild(buttonNode)
         
         // Add wall
         wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
@@ -66,10 +65,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             title: "Right")
         
         buttonGoLeft.actionOnBegan = {
-            self.heroNode.runAction(SKAction.moveByX(-100, y: 0, duration: 1))
+            self.heroNode.moveInDirection(.Left)
         }
         buttonGoRight.actionOnBegan = {
-            self.heroNode.runAction(SKAction.moveByX(100, y: 0, duration: 1))
+            self.heroNode.moveInDirection(.Right)
         }
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
@@ -98,18 +97,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        if let bodyA = contact.bodyA as? Contactable {
+        if let bodyA = contact.bodyA.node as? Contactable {
             bodyA.didBeginContact(contact)
         }
-        if let bodyB = contact.bodyB as? Contactable {
+        if let bodyB = contact.bodyB.node as? Contactable {
             bodyB.didBeginContact(contact)
         }
     }
+    
     func didEndContact(contact: SKPhysicsContact) {
-        if let bodyA = contact.bodyA as? Contactable {
+        if let bodyA = contact.bodyA.node as? Contactable {
             bodyA.didEndContact(contact)
         }
-        if let bodyB = contact.bodyB as? Contactable {
+        if let bodyB = contact.bodyB.node as? Contactable {
             bodyB.didEndContact(contact)
         }
     }

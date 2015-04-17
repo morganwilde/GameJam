@@ -12,8 +12,8 @@ import SpriteKit
 class Button : Utility {
     
     struct Const {
-        static let DEFAULT_WIDTH = 100 as CGFloat
-        static let DEFAULT_HEIGHT = 100 as CGFloat
+        static let DEFAULT_WIDTH = 50 as CGFloat
+        static let DEFAULT_HEIGHT = 50 as CGFloat
         static let DEFAULT_PUSH_DURATION = 0.5 as NSTimeInterval
     }
     
@@ -25,16 +25,16 @@ class Button : Utility {
     
     init() {
         INITIAL_HEIGHT = Const.DEFAULT_HEIGHT
-        super.init(texture: nil, color: SKColor.redColor(),
+        super.init(texture: nil, color: SKColor.blueColor(),
             size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT))
         anchorPoint = CGPointMake(0, 0)
         
         // Physics
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT)))
+        physicsBody?.dynamic = true
         physicsBody!.categoryBitMask = Mask.UTILITY
-        physicsBody!.contactTestBitMask = Mask.SCENE | Mask.HERO
-        physicsBody!.collisionBitMask = Mask.SCENE | Mask.HERO
-        
+        physicsBody!.contactTestBitMask = Mask.HERO
+        physicsBody!.collisionBitMask = Mask.HERO
         push()
     }
     
@@ -46,8 +46,7 @@ class Button : Utility {
     }
     
     func pop() {
-        let popAction = SKAction.resizeToHeight(INITIAL_HEIGHT,
-            duration: Const.DEFAULT_PUSH_DURATION)
+        let popAction = SKAction.resizeToHeight(INITIAL_HEIGHT, duration: Const.DEFAULT_PUSH_DURATION)
         runAction(popAction)
     }
     
