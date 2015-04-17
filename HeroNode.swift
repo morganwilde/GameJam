@@ -71,7 +71,7 @@ class HeroNode: SKSpriteNode {
         
         addChild(torsoNode)
         
-        physicsBody = SKPhysicsBody(rectangleOfSize: size, center: CGPoint(x: size.width/2, y: size.height/2))
+        //physicsBody = SKPhysicsBody(rectangleOfSize: size, center: CGPoint(x: size.width/2, y: size.height/2))
     }
     
     required init?(coder aDecoder: NSCoder) {

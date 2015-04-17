@@ -46,7 +46,6 @@ class MapNode: SKSpriteNode {
 //        groundBlock.physicsBody?.collisionBitMask = PhysicsCategory.All
 //        groundBlock.physicsBody?.contactTestBitMask = PhysicsCategory.Hero
         groundBlock.physicsBody?.affectedByGravity = false
-        groundBlock.zPosition = 100
         groundBlock.physicsBody?.allowsRotation = false
         
         return groundBlock
