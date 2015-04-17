@@ -23,6 +23,9 @@ class AreaOfEffect: SKSpriteNode{
         physicsBody?.dynamic = true
         physicsBody?.affectedByGravity = false
         
+        physicsBody?.categoryBitMask = Mask.EFFECT
+        physicsBody?.contactTestBitMask = Mask.ITEM | Mask.HERO | Mask.OBSTACLE | Mask.UTILITY
+        
         alpha = 0.3
         
     }

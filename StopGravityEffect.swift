@@ -12,12 +12,16 @@ class StopGravityEffect : Effect {
     
     override func applyEffect(target: SKNode) {
         target.runAction(SKAction.runBlock({
+            let oldVelocity = target.physicsBody?.velocity
+            let oldAffectedByGravity = target.physicsBody?.affectedByGravity
             target.physicsBody?.affectedByGravity = false
+
             target.physicsBody?.velocity = CGVector.zeroVector
             
             SKAction.waitForDuration(self.durationOfEffect as NSTimeInterval)
             
-            target.physicsBody?.affectedByGravity = true
+            target.physicsBody?.affectedByGravity = oldAffectedByGravity!
+            target.physicsBody?.velocity = oldVelocity!
         }))
     }
     
