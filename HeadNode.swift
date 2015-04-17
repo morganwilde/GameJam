@@ -40,4 +40,8 @@ class HeadNode: BodyPartNode {
     func stateActivateRest() {
         zRotation = 0
     }
+    override func createPhysicsBody() {
+        super.createPhysicsBody()
+        physicsBody!.affectedByGravity = false
+    }
 }

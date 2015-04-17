@@ -31,7 +31,7 @@ class Button : Utility {
         
         // Physics
         physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
-        physicsBody!.categoryBitMask = Mask.SCENE
+        physicsBody!.categoryBitMask = Mask.UTILITY
         physicsBody!.contactTestBitMask = Mask.SCENE | Mask.HERO
         physicsBody!.collisionBitMask = Mask.SCENE | Mask.HERO
         
