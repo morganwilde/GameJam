@@ -23,12 +23,13 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         
         mapNode = MapNode(size)
         
-        //map.createBackground1()
+        mapNode.createClouds()
+        mapNode.createLevel2()
         
         self.addChild(mapNode)
         
         heroNode = HeroNode()
-        heroNode.position = CGPoint(x: 500, y: 500)
+        heroNode.position = CGPoint(x: 100, y: 500)
         mapNode.addChild(heroNode)
         heroNode.constrainMovement()
         
@@ -77,6 +78,10 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func update(currentTime: NSTimeInterval) {
+        mapNode.updateScreenPos(self.heroNode.position)
     }
     
     
