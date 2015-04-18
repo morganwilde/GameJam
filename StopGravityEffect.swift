@@ -14,11 +14,12 @@ class StopGravityEffect : Effect {
         
         let oldVelocity = target.physicsBody?.velocity
         let oldAffectedByGravity = target.physicsBody?.affectedByGravity
+        let oldDynamic = target.physicsBody?.dynamic
         
         target.runAction(SKAction.sequence([
             SKAction.runBlock({
-                target.physicsBody?.affectedByGravity = false
-                
+                //target.physicsBody?.affectedByGravity = false
+                target.physicsBody?.dynamic = false
                 target.physicsBody?.velocity = CGVector.zeroVector
                 
                 target.alpha = 0.3
@@ -26,7 +27,7 @@ class StopGravityEffect : Effect {
             
             SKAction.runBlock({
                 target.physicsBody?.affectedByGravity = oldAffectedByGravity!
-                
+                target.physicsBody?.dynamic = oldDynamic!
                 target.physicsBody?.velocity = oldVelocity!
                 
                 target.alpha = 1
