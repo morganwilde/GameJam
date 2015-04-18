@@ -239,7 +239,7 @@ class MapNode: SKSpriteNode {
     func createBlockObstacle(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){
         for (var i=0; i<blocksCountX; i++){
             for (var j=0; j<blocksCountY; j++){
-//                addChild(createObstacle(startingPosX + Double(i) * Double(blockWidth) + blockWidth/2, y: startingPosY + Double(j) * Double(blockHeight) + blockHeight/2, width: blockWidth, height: blockHeight))
+                addChild(createObstacle(startingPosX + Double(i) * Double(blockWidth) + blockWidth/2, y: startingPosY + Double(j) * Double(blockHeight) + blockHeight/2, width: blockWidth, height: blockHeight))
             }
         }
     }
@@ -252,11 +252,13 @@ class MapNode: SKSpriteNode {
         }
     }
     
-//    func createObstacle(x: Double, y: Double, width: Double, height: Double) -> SKSpriteNode {
-//     
-//        
-//        
-//    }
+    func createObstacle(x: Double, y: Double, width: Double, height: Double) -> SKSpriteNode {
+     
+        var trap = TrapNode(color: UIColor.clearColor(), size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y))
+        
+        return trap
+        
+    }
     
     func createGround(x: Double, y: Double, width: Double, height: Double) -> SKSpriteNode {
         var groundBlock = SKSpriteNode(imageNamed: "ground.png")
