@@ -38,12 +38,13 @@ enum MovementDirection {
     case Left
 }
 
-class HeroNode: SKSpriteNode, Contactable {
+class HeroNode: SKSpriteNode, Contactable, Affectable {
     
     var items: [Item] = []
     var inventorySlots: [InventorySlot] = []
     var activatedItem: Item?
     var footing:NSInteger = 0
+    var affected:Bool = false
     // Textures
     var texturesWalkLeft = [SKTexture]()
     var texturesWalkRight = [SKTexture]()
