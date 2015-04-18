@@ -46,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add wall
         wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
         wallNode.anchorPoint = CGPoint(x: 0, y: 0)
-        wallNode.position = CGPoint(x: 450, y: 50)
+        wallNode.position = CGPoint(x: 450, y: 0)
         mapNode.addChild(wallNode)
         
         // Add item
@@ -67,11 +67,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let buttonGoRight = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
+<<<<<<< HEAD
             title: "Right",
             onActionBegan: {
                 self.heroNode.moveInDirection(.Right)
             },
             onActionEnded: nil)
+=======
+            title: "Right")
+        
+        buttonGoLeft.actionOnBegan = {
+            self.heroNode.moveInDirection(.Left)
+        }
+        
+        buttonGoRight.actionOnBegan = {
+            self.heroNode.moveInDirection(.Right)
+        }
+>>>>>>> 1b22cc08977aa20b8551f33d4c3e1eb3817f4f1c
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPoint(x: buttonGoLeft.position.x + buttonGoLeft.size.width + 10, y: 10)
@@ -89,10 +101,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didFinishUpdate() {
         centerOnNode(heroNode)
-    }
-    
-    override func update(currentTime: NSTimeInterval) {
-        mapNode.updateScreenPos(self.heroNode.position)
     }
     
     func centerOnNode(node: SKNode) {
