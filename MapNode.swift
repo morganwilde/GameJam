@@ -14,13 +14,16 @@ class MapNode: SKSpriteNode {
     
     let mesurmentsGround: Double = 50
     let mesurmentsWall: Double = 200
-    
+    var screenPos: CGPoint = CGPoint(x: 0, y: 0)
 
     init(_ size: CGSize) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         //generateGround(0,y: 0,count: 0)
         //generateWall()
         createLevel1()
+        createBackground1()
+        createClouds()
+        createLevel2()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +39,57 @@ class MapNode: SKSpriteNode {
         
         
     }
+    
+    func updateScreenPos(position: CGPoint) {
+        
+        
+        
+    }
+    
+    func createClouds(){
+        
+        var node = SKSpriteNode(imageNamed: "cloud.png")
+        node.size = CGSize(width: 50, height: 50)
+        node.position = CGPoint(x: self.frame.width/2,y: self.frame.height/2)
+        node.zPosition = -1
+        
+        addChild(node)
+        
+    }
+    
+    func createBackground1(){
+        var node = SKSpriteNode(imageNamed: "background1.png")//, size: CGSize(width: self.frame.width, height: self.frame.height))
+        node.size = CGSize(width: self.frame.width*2, height: self.frame.height*2)
+        node.position = CGPoint(x: self.frame.width/2,y: self.frame.height/2)
+        node.zPosition = -1
+        node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.frame.width, height: self.frame.height))
+        node.physicsBody?.pinned = true
+        node.physicsBody?.categoryBitMask = 0
+        node.physicsBody?.collisionBitMask = 0
+        addChild(node)
+        
+    }
+    
+    func createLevel2() {
+        
+//        var ground = createGround(300, y: 300, width: 50, height: 50)//(1, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: 300, startingPosY: 300)
+//        var sprite = randomObj()
+//        addChild(ground)
+//        addChild(sprite)
+        
+        
+        
+    }
+    
+    func randomObj() -> SKSpriteNode {
+        
+        var sprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: 50,height: 50))
+        sprite.position = CGPoint(x: 200,y: 200)
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 50,height: 50), center: CGPoint(x: 0.5, y: 0.5))
+        //addChild(sprite)
+        return sprite
+    }
+    
     
     func createLevel1(){
         
@@ -82,7 +136,9 @@ class MapNode: SKSpriteNode {
     
     func createGround(x: Double, y: Double, width: Double, height: Double) -> SKSpriteNode {
         
-        var groundBlock = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: width,height: height))
+        var groundBlock = SKSpriteNode(imageNamed: "ground.png")
+        //var groundBlock = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: width,height: height))
+        groundBlock.size = CGSize(width: width,height: height)
         groundBlock.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         groundBlock.position = CGPoint(x: x, y: y)
         groundBlock.physicsBody = SKPhysicsBody(rectangleOfSize: groundBlock.frame.size, center: CGPoint(x: 0.5, y: 0.5))

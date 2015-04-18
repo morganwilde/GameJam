@@ -90,6 +90,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         centerOnNode(heroNode)
     }
     
+    override func update(currentTime: NSTimeInterval) {
+        mapNode.updateScreenPos(self.heroNode.position)
+    }
+    
     func centerOnNode(node: SKNode) {
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
         mapNode.position = CGPoint(
