@@ -15,11 +15,13 @@ class ViewControllerAmon: UIViewController {
     @IBOutlet weak var spriteView: SKView!
     
     var sceneCurrent: GameScene!
+    var level1CompleteScene: LevelCompleteScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         sceneCurrent = GameScene(size: spriteView.frame.size)
+        
         
         spriteView.presentScene(sceneCurrent)
     }

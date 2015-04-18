@@ -48,7 +48,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             onActionBegan: {
                 self.heroNode.moveInDirection(.Left)
             },
-            onActionEnded: nil)
+            onActionEnded: {
+                self.heroNode.stop()
+            })
         
         let buttonGoRight = ControlNode(
             size: CGSize(width: 50, height: 50),
@@ -57,7 +59,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             onActionBegan: {
                 self.heroNode.moveInDirection(.Right)
             },
-            onActionEnded: nil)
+            onActionEnded: {
+                self.heroNode.stop()
+            })
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
