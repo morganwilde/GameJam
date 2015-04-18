@@ -1,5 +1,5 @@
 //
-//  Affectable.swift
+//  LevelCompleteNode.swift
 //  GameJam
 //
 //  Created by Simas Abramovas on 4/18/15.
@@ -9,8 +9,8 @@
 import Foundation
 import SpriteKit
 
-@objc protocol Affectable {
+class LevelCompleteNode : SKSpriteNode {
     
-    var affected: Bool { get set }      //read-write
+    
     
 }

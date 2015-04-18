@@ -25,8 +25,7 @@ class StopGravityEffect : Effect {
                 SKAction.waitForDuration(5),
                 SKAction.runBlock({
                     affectable.affected = false
-                    println(target.position.x)
-                    target.physicsBody?.dynamic = false
+                    target.physicsBody?.dynamic = true
                     target.physicsBody?.velocity = oldVelocity!
                     target.alpha = 1
                 })

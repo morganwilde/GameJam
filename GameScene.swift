@@ -17,6 +17,7 @@ struct Mask {
     static let OBSTACLE     = 0x1 << 5 as UInt32
     static let GROUND       = 0x1 << 6 as UInt32
     static let EFFECT       = 0x1 << 7 as UInt32
+    static let SUCCESS      = 0x1 << 8 as UInt32
 }
 
 struct NodeName {
