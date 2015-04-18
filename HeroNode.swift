@@ -75,16 +75,23 @@ class HeroNode: SKSpriteNode, Contactable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func stop(){
+        removeActionForKey("heroRun")
+    }
+    
+    var movement: SKAction!
+    
     // Methods
     func moveInDirection(direction: MovementDirection) {
-        var movement: SKAction
+        
         switch (direction) {
-        case .Right:    movement = SKAction.moveByX(50, y: 0, duration: 0.25)
-        case .Left:     movement = SKAction.moveByX(-50, y: 0, duration: 0.25)
+        case .Right:    movement = SKAction.moveBy(CGVector(dx: 5, dy: 0), duration: 0.05)
+        case .Left:     movement = SKAction.moveBy(CGVector(dx: -5, dy: 0), duration: 0.05)
         default:        movement = SKAction()
         }
         
-        runAction(SKAction.group([movement, animationWalkingInDirection(direction)]))
+        
+        runAction(SKAction.group([SKAction.repeatActionForever(movement), animationWalkingInDirection(direction)]), withKey: "heroRun")
     }
     func addItem(item: Item) {
         items.append(item)
@@ -107,8 +114,8 @@ class HeroNode: SKSpriteNode, Contactable {
         case .Left: animation = SKAction.animateWithTextures(texturesWalkLeft, timePerFrame: 0.016)
         default: animation = SKAction()
         }
-        
-        return animation
+        return SKAction.repeatActionForever(animation)
+       
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
