@@ -38,26 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         mapNode = MapNode(size)
-        
-        // Add hero
-        heroNode = HeroNode()
-        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 50)
-        mapNode.addChild(heroNode)
-        
-        // Add button
-        let buttonNode = Button()
-        buttonNode.position = CGPoint(x: -size.width * 2 / 3, y: 50)
-        mapNode.addChild(buttonNode)
-        
-        // Add wall
-        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
-        wallNode.position = CGPoint(x: 450, y: 50 + size.height / 2)
-        mapNode.addChild(wallNode)
-        
-        // Add item
-        let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
-        itemNode.position = CGPoint(x: 50, y: 100)
-        mapNode.addChild(itemNode)
+        addChild(mapNode)
         
         // Controls
         let buttonGoLeft = ControlNode(
@@ -79,13 +60,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             onActionEnded: nil)
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
-        buttonGoRight.position = CGPoint(x: buttonGoLeft.position.x + buttonGoLeft.size.width + 10, y: 10)
+        buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
         
-        addChild(mapNode)
-        
-        // Controls
         addChild(buttonGoLeft)
         addChild(buttonGoRight)
+        
+        // Add hero
+        heroNode = HeroNode()
+        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 50)
+        mapNode.addChild(heroNode)
+        heroNode.constraintMovement()
+        
+        // Add button
+        let buttonNode = Button()
+        buttonNode.position = CGPoint(x: 250, y: 50)
+        mapNode.addChild(buttonNode)
+        
+        // Add wall
+        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
+        wallNode.position = CGPoint(x: 450, y: 50 + size.height / 2)
+        mapNode.addChild(wallNode)
+        
+        // Add item
+        let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
+        itemNode.position = CGPoint(x: 50, y: 100)
+        mapNode.addChild(itemNode)
     }
 
     required init?(coder aDecoder: NSCoder) {

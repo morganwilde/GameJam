@@ -48,23 +48,25 @@ class HeroNode: SKSpriteNode, Contactable {
     
     init() {
         let texture = SKTexture(imageNamed: "Hero.png")
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSizeMake(texture.size().width * 4 / 5, texture.size().height * 4 / 5))
         
         name = "hero"
-        
-        physicsBody = SKPhysicsBody(texture: texture, size: size)
-        physicsBody?.mass = 20000
+        physicsBody = SKPhysicsBody(rectangleOfSize: size)
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
 
-        
-        constraints = [SKConstraint.positionX(SKRange(lowerLimit: -scene.frame.width, upperLimit: <#CGFloat#>), y: SKRange(0, 0))]
         // Create the textures arrays
         for i in 0...16 {
             texturesWalkRight.append(SKTexture(imageNamed: String(format: "Walking animation%02d.png", i)))
             texturesWalkLeft.append(SKTexture(imageNamed: String(format: "walking-left-%d.png", i)))
         }
+    }
+    
+    func constraintMovement() {
+        let mapNode = parent as! MapNode
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: CGFloat(mapNode.startMap) + size.width,
+            upperLimit: CGFloat(mapNode.endMap) - size.width))]
     }
     
     required init?(coder aDecoder: NSCoder) {

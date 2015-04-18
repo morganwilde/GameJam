@@ -12,14 +12,14 @@ import SpriteKit
 class InteractionNode : SKSpriteNode {
     
     struct Const {
-        static let DEFAULT_BG_WIDTH    = 150 as CGFloat
-        static let DEFAULT_BG_HEIGHT   = 150 as CGFloat
-        static let DEFAULT_BUTTON_WIDTH    = 120 as CGFloat
-        static let DEFAULT_BUTTON_HEIGHT   = 70 as CGFloat // ToDo sizes based on screen size
+        static let DEFAULT_BG_WIDTH    = 120 as CGFloat
+        static let DEFAULT_BG_HEIGHT   = 120 as CGFloat
+        static let DEFAULT_BUTTON_WIDTH    = 100 as CGFloat
+        static let DEFAULT_BUTTON_HEIGHT   = 50 as CGFloat // ToDo sizes based on screen size
     }
     
     init(title : String) {
-        super.init(texture: nil, color: UIColor.grayColor().colorWithAlphaComponent(0.5), size: CGSizeMake(150, 150))
+        super.init(texture: nil, color: UIColor.grayColor().colorWithAlphaComponent(0.5), size: CGSizeMake(Const.DEFAULT_BG_WIDTH, Const.DEFAULT_BG_HEIGHT))
       
         anchorPoint = CGPointMake(0, 0)
         
@@ -31,6 +31,7 @@ class InteractionNode : SKSpriteNode {
             onActionEnded: nil)
         buttonNode.position = CGPointMake((size.width - buttonNode.size.width) / 2,
             (size.height - buttonNode.size.height) / 2)
+
         addChild(buttonNode)
     }
 

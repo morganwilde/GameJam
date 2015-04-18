@@ -19,12 +19,14 @@ class ControlNode: SKSpriteNode {
         actionOnEnded = onActionEnded
         super.init(texture: nil, color: color, size: size)
         
+        zPosition = 100
+        
         userInteractionEnabled = true
         anchorPoint = CGPoint(x: 0, y: 0)
         
         let labelNode = ClickableLabel(text: title, began: onActionBegan, ended: onActionEnded)
         labelNode.fontColor = UIColor.blackColor()
-        labelNode.fontSize = 16
+        labelNode.fontSize = 14
         labelNode.position = CGPoint(x: size.width/2, y: size.height/2)
         labelNode.horizontalAlignmentMode = .Center
         labelNode.verticalAlignmentMode = .Center

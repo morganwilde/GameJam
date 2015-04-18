@@ -14,14 +14,14 @@ class Utility : SKSpriteNode, Contactable {
     let AUTO_REMOVAL_ACTION_KEY = "auto_remove_interaction_button"
     let REMOVE_DELAY = 1 as NSTimeInterval
     var interactionNode : InteractionNode?
-
+    var contactCount = 0
     
     
     func didBeginContact(contact: SKPhysicsContact) {
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
-            println("Began contact with hero!")
+            ++contactCount
             if (interactionNode == nil) {
                 // Create interaction button if it doesn't exist
                 interactionNode = InteractionNode(title: "Do you even lift?")
@@ -41,17 +41,19 @@ class Utility : SKSpriteNode, Contactable {
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
-            println("Ended contact with hero!")
-            // Remove interaction node after a prefixed amount of time
-            runAction(SKAction.sequence([
-                SKAction.waitForDuration(REMOVE_DELAY),
-                SKAction.runBlock({ () -> Void in
-                    if let interactionNode = self.interactionNode {
-                        self.interactionNode!.removeFromParent()
-                        self.interactionNode = nil
-                    }
-                })
-            ]), withKey: AUTO_REMOVAL_ACTION_KEY)
+            --contactCount
+            if contactCount == 0 {
+                // Remove interaction node after a prefixed amount of time
+                runAction(SKAction.sequence([
+                    SKAction.waitForDuration(REMOVE_DELAY),
+                    SKAction.runBlock({ () -> Void in
+                        if let interactionNode = self.interactionNode {
+                            self.interactionNode!.removeFromParent()
+                            self.interactionNode = nil
+                        }
+                    })
+                ]), withKey: AUTO_REMOVAL_ACTION_KEY)
+            }
             return
         default:
             return
