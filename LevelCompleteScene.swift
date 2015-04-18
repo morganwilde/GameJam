@@ -22,6 +22,17 @@ class LevelCompleteScene: SKScene {
         label.fontSize = 30
         label.fontColor = UIColor.whiteColor()
         self.addChild(label)
+        
+        var clickableLabel = ClickableLabel(text: "Play Level 2",
+            began: {
+                
+            }, ended: {
+                self.view?.presentScene(GameScene2(size: size))
+            })
+        clickableLabel.fontColor = UIColor.redColor()
+        clickableLabel.position = CGPoint(x: size.width/2, y: size.height/2-50)
+        self.addChild(clickableLabel)
+        
     }
 
     required init?(coder aDecoder: NSCoder) {

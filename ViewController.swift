@@ -20,21 +20,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scene2 = GameScene2(size: spriteView.frame.size)
         sceneCurrent = GameScene(size: spriteView.frame.size)
-        level1CompleteScene = LevelCompleteScene(size: spriteView.frame.size, level: 1)
         
-        //spriteView.presentScene(scene2)
-        
-        //level1Complete()
         spriteView.presentScene(sceneCurrent)
         
-        
         spriteView.showsPhysics = true
-    }
-    
-    func level1Complete() {
-        spriteView.presentScene(level1CompleteScene)
     }
     
 }
