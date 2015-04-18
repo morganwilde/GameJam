@@ -17,7 +17,7 @@ class LevelCompleteScene: SKScene {
         var node = SKSpriteNode(color: UIColor.blackColor(), size: CGSize(width: size.width, height: size.height))
         node.position = CGPoint(x: size.width/2, y: size.height/2)
         self.addChild(node)
-        var label = SKLabelNode(text: "Level \(level) compelted!")
+        var label = SKLabelNode(text: "Level \(level) completed!")
         label.position = CGPoint(x: size.width/2, y: size.height/2)
         label.fontSize = 30
         label.fontColor = UIColor.whiteColor()
