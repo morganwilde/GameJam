@@ -100,9 +100,7 @@ class HeroNode: SKSpriteNode, Contactable {
     
     func jump(){
         if footing > 0 {
-//            self.runAction(SKAction.moveBy(CGVector(dx: 0, dy: scene!.frame.height * 2), duration: 1.5))
-            physicsBody?.applyImpulse(CGVector(dx: 0, dy: 450))
-            println("wut")
+            physicsBody?.applyImpulse(CGVector(dx: 0, dy: 100))
         }
     }
     

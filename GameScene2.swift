@@ -56,11 +56,19 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
                 self.heroNode.stop()
         })
         
+        let buttonGoUp = ControlNode(size: CGSize(width: 50, height: 50),
+            color: UIColor.whiteColor(),
+            title: "Jump",
+            onActionBegan: { self.heroNode.jump() },
+            onActionEnded: nil)
+        
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
+        buttonGoUp.position = CGPoint(x: size.width - 10 - buttonGoUp.size.width, y: 70)
         
         addChild(buttonGoLeft)
         addChild(buttonGoRight)
+        addChild(buttonGoUp)
         
     
     }
@@ -84,6 +92,23 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         mapNode.updateScreenPos(self.heroNode.position)
     }
     
+    func didBeginContact(contact: SKPhysicsContact) {
+        if let bodyA = contact.bodyA.node as? Contactable {
+            bodyA.didBeginContact(contact)
+        }
+        if let bodyB = contact.bodyB.node as? Contactable {
+            bodyB.didBeginContact(contact)
+        }
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        if let bodyA = contact.bodyA.node as? Contactable {
+            bodyA.didEndContact(contact)
+        }
+        if let bodyB = contact.bodyB.node as? Contactable {
+            bodyB.didEndContact(contact)
+        }
+    }
     
     
 }

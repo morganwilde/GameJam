@@ -85,7 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 50, y: mapNode.mesurmentsGround)
+        buttonNode.position = CGPoint(x: 80, y: mapNode.mesurmentsGround)
         mapNode.addChild(buttonNode)
         
         // Add wall
@@ -102,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         mapNode.addChild(itemNode)
 
         itemNode.displayItemName()
-        addChild(itemNode.displayText!)
+        mapNode.addChild(itemNode.displayText!)
         
         // Add level complete thingy
         let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
