@@ -12,14 +12,23 @@ import SpriteKit
 class MapNode: SKSpriteNode {
     
     
+    var startMap: Double = 0
+    var endMap: Double = 0
+    
     let mesurmentsGround: Double = 50
     let mesurmentsWall: Double = 200
     var screenPos: CGPoint = CGPoint(x: 0, y: 0)
+    
+    var cloudCreatedX = 0
+    var cloudCreatedWidth = 0
+    var cloudCreatedY = 0
+    var cloudCreatedHeight = 0
 
     init(_ size: CGSize) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         //generateGround(0,y: 0,count: 0)
         //generateWall()
+        self.name = NodeName.MAP
         createLevel1()
         createBackground1()
         createClouds()
@@ -42,31 +51,53 @@ class MapNode: SKSpriteNode {
     
     func updateScreenPos(position: CGPoint) {
         
+        arc4random()
+        
+        //x axis cloud check
+        if(position.x + self.frame.width > CGFloat(cloudCreatedWidth) + CGFloat(cloudCreatedX)){
+            //x axis: cloud x + width < camera x + frame
+            
+        }else if(position.x < CGFloat(cloudCreatedX)){
+            //x axis: cloud x > camera x
+        
+        }
+        
+        //y axis cloud check (expl. like x)
+        if(position.y + self.frame.height > CGFloat(cloudCreatedHeight) + CGFloat(cloudCreatedY)){
+            
+        }else if(position.y < CGFloat(cloudCreatedY)){
+            
+        }
+        
         
         
     }
     
     func createClouds(){
         
+       
+        
+    }
+    
+    func createCloud(x: Int, y: Int){
         var node = SKSpriteNode(imageNamed: "cloud.png")
         node.size = CGSize(width: 50, height: 50)
-        node.position = CGPoint(x: self.frame.width/2,y: self.frame.height/2)
+        node.position = CGPoint(x: x,y: y)
         node.zPosition = -1
         
         addChild(node)
-        
     }
     
     func createBackground1(){
         var node = SKSpriteNode(imageNamed: "background1.png")//, size: CGSize(width: self.frame.width, height: self.frame.height))
-        node.size = CGSize(width: self.frame.width*2, height: self.frame.height*2)
-        node.position = CGPoint(x: self.frame.width/2,y: self.frame.height/2)
+        //node.size = CGSize(width: self.frame.width*2, height: self.frame.height*2)
+        //node.position = CGPoint(x: self.frame.width/2,y: self.frame.height/2)
         node.zPosition = -1
-        node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.frame.width, height: self.frame.height))
+        node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.frame.width*2, height: self.frame.height*2))
         node.physicsBody?.pinned = true
         node.physicsBody?.categoryBitMask = 0
         node.physicsBody?.collisionBitMask = 0
-        addChild(node)
+        //addChild(node)
         
     }
     
@@ -98,6 +129,8 @@ class MapNode: SKSpriteNode {
         createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall, startingPosY: 0)
         let end: Double = generateGround(start, y: 0, count: 3)
         createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall, blockHeight: mesurmentsWall, startingPosX: end, startingPosY: 0)
+        startMap = start
+        endMap = end
     }
     
     var endPoint: Double!
