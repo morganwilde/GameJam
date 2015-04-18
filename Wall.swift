@@ -14,6 +14,9 @@ class Wall : Obstacle {
     let body : SKPhysicsBody
     let defaultWidth = 20
     let defaultHeight = 100
+    var isRaised = false
+    
+    var isBeingRisen = false
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         body = SKPhysicsBody(rectangleOfSize: CGSize(width: defaultWidth, height: defaultHeight))
@@ -21,23 +24,37 @@ class Wall : Obstacle {
         super.init(texture: nil, color: color, size: size)
         //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
         
-        
         body.affectedByGravity = false
-        body.dynamic = false
+        body.dynamic = true
         body.restitution = 0
+        body.categoryBitMask = Mask.OBSTACLE
+        body.collisionBitMask = Mask.HERO | Mask.GROUND
+        body.contactTestBitMask = Mask.HERO | Mask.GROUND
         
         self.physicsBody = body
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
+    }    
     
     func raise() {
-        self.runAction(SKAction.moveBy(CGVectorMake(0, 170), duration: 1))
+        self.physicsBody?.affectedByGravity = false
+        if !isRaised {
+            self.runAction(SKAction.moveBy(CGVectorMake(0, 170), duration: 1))
+            isRaised = true
+        }
+    }
+    
+    func cancelRising() {
+        self.removeAllActions()
+        self.physicsBody?.affectedByGravity = true
     }
     
     func lower() {
-        self.runAction(SKAction.moveBy(CGVectorMake(0, -170), duration: 1))
+        if isRaised {
+            self.runAction(SKAction.moveBy(CGVectorMake(0, -170), duration: 1))
+            isRaised = false
+        }
     }
 }
