@@ -194,7 +194,7 @@ class HeroNode: SKSpriteNode, Contactable, Affectable {
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        if let scene = scene as? GameScene {
+        if let scene = scene as? GameScene2 {
             if let item = scene.heroNode.activatedItem {
                 item.cast(self)
             }

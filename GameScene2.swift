@@ -33,6 +33,12 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         mapNode.addChild(heroNode)
         heroNode.constrainMovement()
         
+        var physicsItem = SingleTargetPhysicsBendingItem(desiredEffect: RemoveCollisionsEffect())
+        physicsItem.position = CGPoint(x: 300, y: 600)
+        mapNode.addChild(physicsItem)
+        physicsItem.displayItemName()
+        mapNode.addChild(physicsItem.displayText!)
+        
         // Controls
         let buttonGoLeft = ControlNode(
             size: CGSize(width: 50, height: 50),
