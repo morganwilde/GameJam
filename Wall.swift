@@ -9,11 +9,13 @@
 import Foundation
 import SpriteKit
 
-class Wall : Obstacle, Contactable {
+class Wall : Obstacle, Contactable, Affectable {
     
+    var affected: Bool = false
     let defaultWidth = 20
     let defaultHeight = 100
     var isRaised = false
+    let RAISE_ACTION = "raise_action"
     
 //    let default
     
@@ -29,8 +31,8 @@ class Wall : Obstacle, Contactable {
         body.collisionBitMask = Mask.HERO | Mask.GROUND
         body.contactTestBitMask = Mask.HERO | Mask.GROUND
         body.allowsRotation = false
-        constraints = [SKConstraint.positionX(SKRange(lowerLimit: position.x, upperLimit: position.x))]
         self.physicsBody = body
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: position.x, upperLimit: position.x))]
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,25 +40,20 @@ class Wall : Obstacle, Contactable {
     }    
     
     func raise() {
-        self.physicsBody?.affectedByGravity = false
+        physicsBody?.dynamic = false
         if !isRaised {
             if let scene = scene as? GameScene {
-                self.runAction(SKAction.sequence([
-                    SKAction.moveToY(scene.size.height * 4 / 3, duration: 1 as NSTimeInterval),
-                    SKAction.runBlock({ () -> Void in
-                        self.isRaised = true
-                    })
-                ]))
-//                self.isRaised = true
+                runAction(SKAction.moveToY(scene.size.height * 4 / 3, duration: 1 as NSTimeInterval),
+                    withKey: RAISE_ACTION)
+                isRaised = true
             }
         }
     }
     
     func lower() {
-        self.removeAllActions()
-        if (isRaised) {
+        removeActionForKey(RAISE_ACTION)
+        if (!affected && isRaised) {
             physicsBody?.dynamic = true
-            self.physicsBody?.affectedByGravity = true
         }
     }
     
@@ -65,9 +62,10 @@ class Wall : Obstacle, Contactable {
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        if let scene = scene {
-            var parentScene = scene as! GameScene
-            parentScene.heroNode.activatedItem!.cast(self)
+        if let scene = scene as? GameScene {
+            if let item = scene.heroNode.activatedItem {
+                item.cast(self)
+            }
         }
     }
     
@@ -76,7 +74,10 @@ class Wall : Obstacle, Contactable {
         case (Mask.GROUND, Mask.OBSTACLE): fallthrough
         case (Mask.OBSTACLE, Mask.GROUND):
             isRaised = false
-            self.physicsBody?.dynamic = true
+            println(contact.collisionImpulse)
+            if contact.collisionImpulse < 750 {
+                physicsBody?.dynamic = false
+            }
             return
         default:
             return
@@ -86,6 +87,5 @@ class Wall : Obstacle, Contactable {
     func didEndContact(contact: SKPhysicsContact) {
         
     }
-    
     
 }
