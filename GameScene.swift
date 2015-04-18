@@ -41,43 +41,91 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         mapNode.createLevel1()
         
         // Controls
+        // Controls
         let buttonGoLeft = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
-            title: "Left",
+            title: "↢",
             onActionBegan: {
                 self.heroNode.moveInDirection(.Left)
             },
             onActionEnded: {
                 self.heroNode.stop()
-            })
+        })
         
         let buttonGoRight = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
-            title: "Right",
+            title: "↣",
             onActionBegan: {
                 self.heroNode.moveInDirection(.Right)
+                println("fucked")
             },
             onActionEnded: {
                 self.heroNode.stop()
-            })
-        
-        let buttonGoUp = ControlNode(size: CGSize(width: 50, height: 50),
-            color: UIColor.whiteColor(),
-            title: "Jump",
-            onActionBegan: { self.heroNode.jump() },
-            onActionEnded: nil)
+        })
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
-        buttonGoUp.position = CGPoint(
-            x: size.width/2 - buttonGoUp.size.width/2,
-            y: 10)
         
+        let buttonGoUpLeft = ControlNode(size: CGSize(width: 50, height: 50),
+            color: UIColor.orangeColor(),
+            title: "↥",
+            onActionBegan: {
+                self.heroNode.jump()
+                println("clicked left")
+            },
+            onActionEnded: nil)
+        
+        let buttonGoUpRight = ControlNode(size: CGSize(width: 50, height: 50),
+            color: UIColor.orangeColor(),
+            title: "↥",
+            onActionBegan: {
+                self.heroNode.jump()
+                println("clicked right")
+            },
+            onActionEnded: nil)
+        
+        buttonGoUpLeft.position = buttonGoLeft.position
+        buttonGoUpRight.position = buttonGoRight.position
+        buttonGoUpLeft.controlHide()
+        buttonGoUpRight.controlHide()
+        
+        // Button switching
+        buttonGoLeft.actionOnBegan = {
+            buttonGoRight.controlHide()
+            buttonGoUpRight.controlShow()
+            self.heroNode.moveInDirection(.Left)
+        }
+        buttonGoLeft.actionOnEnded = {
+            buttonGoRight.controlShow()
+            buttonGoUpRight.controlHide()
+            self.heroNode.stop()
+        }
+        
+        buttonGoRight.actionOnBegan = {
+            buttonGoLeft.controlHide()
+            buttonGoUpLeft.controlShow()
+            self.heroNode.moveInDirection(.Right)
+            println("began")
+        }
+        buttonGoRight.actionOnEnded = {
+            buttonGoUpLeft.controlHide()
+            buttonGoLeft.controlShow()
+            self.heroNode.stop()
+            println("ended")
+        }
+        
+        // Tree
+        addChild(buttonGoUpLeft)
+        addChild(buttonGoUpRight)
         addChild(buttonGoLeft)
         addChild(buttonGoRight)
-        addChild(buttonGoUp)
+        
+        buttonGoUpLeft.name = "buttonGoUpLeft"
+        buttonGoUpRight.name = "buttonGoUpRight"
+        buttonGoLeft.name = "buttonGoLeft"
+        buttonGoRight.name = "buttonGoRight"
         
         // Add hero
         heroNode = HeroNode()

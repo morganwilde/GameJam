@@ -12,18 +12,18 @@ import SpriteKit
 class InteractionNode : SKSpriteNode {
     
     struct Const {
-        static let DEFAULT_BG_WIDTH    = 120 as CGFloat
-        static let DEFAULT_BG_HEIGHT   = 120 as CGFloat
-        static let DEFAULT_BUTTON_WIDTH    = 100 as CGFloat
+        static let DEFAULT_BG_WIDTH    = 130 as CGFloat
+        static let DEFAULT_BG_HEIGHT   = 70 as CGFloat
+        static let DEFAULT_BUTTON_WIDTH    = 110 as CGFloat
         static let DEFAULT_BUTTON_HEIGHT   = 50 as CGFloat // ToDo sizes based on screen size
     }
     
-    let button: ControlNode
+    let button: ControlNodeOld
     
     
     init(title: String, onActionBegan: (() -> ())?, onActionEnded: (() -> ())?) {
-        button = ControlNode(size: CGSizeMake(Const.DEFAULT_BUTTON_WIDTH, Const.DEFAULT_BUTTON_HEIGHT),
-            color: UIColor.redColor(),
+        button = ControlNodeOld(size: CGSizeMake(Const.DEFAULT_BUTTON_WIDTH, Const.DEFAULT_BUTTON_HEIGHT),
+            color: UIColor.blackColor(),
             title: title,
             onActionBegan: onActionBegan,
             onActionEnded: onActionEnded)
