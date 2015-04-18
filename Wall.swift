@@ -19,13 +19,13 @@ class Wall : Obstacle {
     var isBeingRisen = false
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
-        body = SKPhysicsBody(rectangleOfSize: CGSize(width: defaultWidth, height: defaultHeight))
+        body = SKPhysicsBody(rectangleOfSize: size)
         
         super.init(texture: nil, color: color, size: size)
         //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
-        
+
         body.affectedByGravity = false
-        body.dynamic = true
+        body.dynamic = false
         body.restitution = 0
         body.categoryBitMask = Mask.OBSTACLE
         body.collisionBitMask = Mask.HERO | Mask.GROUND

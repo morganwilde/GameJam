@@ -35,18 +35,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add hero
         heroNode = HeroNode()
-        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: heroNode.size.height + 50)
+        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 50)
         mapNode.addChild(heroNode)
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 230, y: 50)
+        buttonNode.position = CGPoint(x: -size.width * 2 / 3, y: 50)
         mapNode.addChild(buttonNode)
         
         // Add wall
         wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
-        wallNode.anchorPoint = CGPoint(x: 0, y: 0)
-        wallNode.position = CGPoint(x: 450, y: 50)
+        wallNode.position = CGPoint(x: 450, y: 50 + size.height / 2)
         mapNode.addChild(wallNode)
         
         // Add item
