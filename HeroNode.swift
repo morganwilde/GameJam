@@ -38,40 +38,60 @@ enum MovementDirection {
     case Left
 }
 
-class HeroNode: SKSpriteNode {
+class HeroNode: SKSpriteNode, Contactable {
     
     var items: [Item] = []
+    var inventorySlots: [InventorySlot] = []
     var activatedItem: Item?
+    // Textures
+    var texturesWalkLeft = [SKTexture]()
+    var texturesWalkRight = [SKTexture]()
     
     init() {
         let texture = SKTexture(imageNamed: "Hero.png")
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSizeMake(texture.size().width * 4 / 5, texture.size().height * 4 / 5))
         
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-        
-        anchorPoint = CGPoint(x: 0, y: 0)
-        
-        physicsBody = SKPhysicsBody(
-            rectangleOfSize: frame.size,
-            center: CGPoint(x: frame.width/2, y: frame.height/2))
-        physicsBody?.categoryBitMask = Mask.HERO
-        physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
-        physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        name = "hero"
+        physicsBody = SKPhysicsBody(rectangleOfSize: size)
+        physicsBody!.dynamic = true
+        physicsBody!.categoryBitMask = Mask.HERO
+        physicsBody!.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody!.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+
+        // Create the textures arrays
+        for i in 0...16 {
+            texturesWalkRight.append(SKTexture(imageNamed: String(format: "Walking animation%02d.png", i)))
+            texturesWalkLeft.append(SKTexture(imageNamed: String(format: "walking-left-%d.png", i)))
+        }
+    }
+    
+    func constrainMovement() {
+        let mapNode = parent as! MapNode
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: CGFloat(mapNode.startMap) + size.width / 2,
+            upperLimit: CGFloat(mapNode.endMap) - size.width))]
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func stop(){
+        removeActionForKey("heroRun")
+    }
+    
+    var movement: SKAction!
+    
     // Methods
     func moveInDirection(direction: MovementDirection) {
-        var movement: SKAction
+        
         switch (direction) {
-        case .Right:    movement = SKAction.moveByX(100, y: 0, duration: 0.25)
-        case .Left:     movement = SKAction.moveByX(-100, y: 0, duration: 0.25)
+        case .Right:    movement = SKAction.moveBy(CGVector(dx: 15, dy: 0), duration: 0.05)
+        case .Left:     movement = SKAction.moveBy(CGVector(dx: -15, dy: 0), duration: 0.05)
         default:        movement = SKAction()
         }
         
-        runAction(movement)
+        
+        runAction(SKAction.group([SKAction.repeatActionForever(movement), animationWalkingInDirection(direction)]), withKey: "heroRun")
     }
     func addItem(item: Item) {
         items.append(item)
@@ -86,4 +106,61 @@ class HeroNode: SKSpriteNode {
         return items.contains(item)
     }
     
+    // Animations
+    func animationWalkingInDirection(direction: MovementDirection) -> SKAction {
+        var animation: SKAction
+        switch (direction) {
+        case .Right: animation = SKAction.animateWithTextures(texturesWalkRight, timePerFrame: 0.016)
+        case .Left: animation = SKAction.animateWithTextures(texturesWalkLeft, timePerFrame: 0.016)
+        default: animation = SKAction()
+        }
+        return SKAction.repeatActionForever(animation)
+       
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == Mask.ITEM && contact.bodyB.node == self {
+            var pickedUpItem = contact.bodyA.node as! Item
+            if !pickedUpItem.pickedUp {
+                pickedUpItem.pickedUp = true
+                pickedUpItem.getCollected()
+                items.append(pickedUpItem)
+                addPickedUpItem(pickedUpItem)
+
+            }
+        }
+        else if contact.bodyB.categoryBitMask == Mask.ITEM && contact.bodyA.node == self {
+            var pickedUpItem = contact.bodyB.node as! Item
+            if !pickedUpItem.pickedUp {
+                pickedUpItem.pickedUp = true
+                pickedUpItem.getCollected()
+                items.append(pickedUpItem)
+                addPickedUpItem(pickedUpItem)
+            }
+        }
+    }
+    
+    func getSelectedSlot() -> InventorySlot?{
+        for slot in inventorySlots {
+            if activatedItem == slot.slottedItem {
+                return slot
+            }
+        }
+        return nil
+    }
+    
+    
+    func addPickedUpItem(pickedUpItem:Item){
+        if let scene = scene {
+            var slot = InventorySlot(hero: self, size: CGSize(width: 50, height: 50), color: SKColor.whiteColor(), title: "", onActionBegan: nil, onActionEnded: nil)
+            scene.addChild(slot)
+            slot.setItem(pickedUpItem)
+            inventorySlots.append(slot)
+            slot.position = CGPoint(x: CGFloat((inventorySlots.count-1) * 60 + 20), y: scene.frame.height - 70)
+        }
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
+    }
 }

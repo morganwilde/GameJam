@@ -19,11 +19,17 @@ struct Mask {
     static let EFFECT       = 0x1 << 7 as UInt32
 }
 
+struct NodeName {
+    static let MAP          = "MapNode"
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var mapNode: MapNode!
     var heroNode: HeroNode!
     var wallNode: Wall!
+    
+    
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -32,54 +38,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         mapNode = MapNode(size)
-        
-        // Add hero
-        heroNode = HeroNode()
-        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 100)
-        mapNode.addChild(heroNode)
-        
-        // Add button
-        let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 230, y: 50)
-        mapNode.addChild(buttonNode)
-        
-        // Add wall
-        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height))
-        wallNode.anchorPoint = CGPoint(x: 0, y: 0)
-        wallNode.position = CGPoint(x: 450, y: 0)
-        mapNode.addChild(wallNode)
-        
-        // Add item
-        let itemNode = SingleTargetPhysicsBendingItem(parent: mapNode)
-        itemNode.position = CGPoint(x: 50, y: 100)
-        mapNode.addChild(itemNode)
+        addChild(mapNode)
         
         // Controls
         let buttonGoLeft = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
-            title: "Left")
+            title: "Left",
+            onActionBegan: {
+                self.heroNode.moveInDirection(.Left)
+            },
+            onActionEnded: {
+                self.heroNode.stop()
+            })
+        
         let buttonGoRight = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
-            title: "Right")
-        
-        buttonGoLeft.actionOnBegan = {
-            self.heroNode.moveInDirection(.Left)
-        }
-        
-        buttonGoRight.actionOnBegan = {
-            self.heroNode.moveInDirection(.Right)
-        }
+            title: "Right",
+            onActionBegan: {
+                self.heroNode.moveInDirection(.Right)
+            },
+            onActionEnded: {
+                self.heroNode.stop()
+            })
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
-        buttonGoRight.position = CGPoint(x: buttonGoLeft.position.x + buttonGoLeft.size.width + 10, y: 10)
+        buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
         
-        addChild(mapNode)
-        
-        // Controls
         addChild(buttonGoLeft)
         addChild(buttonGoRight)
+        
+        // Add hero
+        heroNode = HeroNode()
+        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 50)
+        mapNode.addChild(heroNode)
+        heroNode.constrainMovement()
+        
+        // Add button
+        let buttonNode = Button()
+        buttonNode.position = CGPoint(x: 150, y: 50)
+        mapNode.addChild(buttonNode)
+        
+        // Add wall
+        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height),
+            position: CGPoint(x: 450, y: 50 + size.height / 2))
+        mapNode.addChild(wallNode)
+        
+        // Add item
+        let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
+        itemNode.position = CGPoint(x: 50, y: 100)
+        mapNode.addChild(itemNode)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -88,6 +97,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didFinishUpdate() {
         centerOnNode(heroNode)
+    }
+    
+    override func update(currentTime: NSTimeInterval) {
+        mapNode.updateScreenPos(self.heroNode.position)
     }
     
     func centerOnNode(node: SKNode) {

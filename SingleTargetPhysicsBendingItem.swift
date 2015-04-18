@@ -10,8 +10,8 @@ import SpriteKit
 
 class SingleTargetPhysicsBendingItem: PhysicsBendingItem {
     
-    override init(parent: SKNode) {
-        super.init(parent: parent)
+    override init(desiredEffect:Effect) {
+        super.init(desiredEffect: desiredEffect)
         durationOfEffect = 5
     }
 
@@ -19,24 +19,8 @@ class SingleTargetPhysicsBendingItem: PhysicsBendingItem {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func effect(object:SKSpriteNode) {
-        
-        object.runAction(SKAction.runBlock({
-            object.physicsBody?.affectedByGravity = false
-            object.physicsBody?.velocity = CGVector.zeroVector
-            
-            SKAction.waitForDuration(self.durationOfEffect as NSTimeInterval)
-            
-            object.physicsBody?.affectedByGravity = true
-        }))
-        
-    }
-    
-    
-    func cast(object:SKSpriteNode) {
-        
-        effect(object)
-        
+    override func cast(target:SKNode) {
+        effect?.applyEffect(target)
     }
     
 }

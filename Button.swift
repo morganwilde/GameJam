@@ -30,12 +30,11 @@ class Button : Utility {
         anchorPoint = CGPointMake(0, 0)
         
         // Physics
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT)))
-        physicsBody?.dynamic = true
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        physicsBody!.dynamic = false
         physicsBody!.categoryBitMask = Mask.UTILITY
         physicsBody!.contactTestBitMask = Mask.HERO
         physicsBody!.collisionBitMask = Mask.HERO
-        push()
     }
     
     func push() {

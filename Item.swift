@@ -8,25 +8,48 @@
 
 import SpriteKit
 
-class Item : SKSpriteNode{
+class Item : SKSpriteNode, Contactable{
     
-    var home: SKNode?
+    var pickedUp = false
     
-    init(parent: SKNode){
-        super.init(texture: nil, color: SKColor.redColor(), size: CGSize(width: parent.frame.width / 10, height: parent.frame.height / 10))
-        home = parent
+    init(){
+        super.init(texture: SKTexture(imageNamed: "ring.png"), color: SKColor.redColor(), size: CGSize(width: 40, height: 40))
         
         physicsBody = SKPhysicsBody(rectangleOfSize: self.size)
         physicsBody?.restitution = 0
         physicsBody?.dynamic = true
         
+        userInteractionEnabled = true
+        
+        physicsBody?.categoryBitMask = Mask.ITEM
+        physicsBody?.collisionBitMask = Mask.ITEM | Mask.GROUND | Mask.HERO | Mask.OBSTACLE | Mask.EFFECT
+        physicsBody?.contactTestBitMask = Mask.ITEM | Mask.GROUND | Mask.HERO | Mask.OBSTACLE | Mask.EFFECT
+        
+        name = "item"
     }
 
+    func getCollected(){
+        runAction(SKAction.removeFromParent())
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    func didBeginContact(contact: SKPhysicsContact) {
+
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
+    }
+    
     func effect(){
+        
+    }
+    
+    func cast(target:SKNode){
         
     }
     

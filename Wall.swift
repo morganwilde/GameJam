@@ -9,29 +9,30 @@
 import Foundation
 import SpriteKit
 
-class Wall : Obstacle {
+class Wall : Obstacle, Contactable, Affectable {
     
-    let body : SKPhysicsBody
+    var affected: Bool = false
     let defaultWidth = 20
     let defaultHeight = 100
     var isRaised = false
+    let RAISE_ACTION = "raise_action"
     
-    var isBeingRisen = false
+//    let default
     
-    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
-        body = SKPhysicsBody(rectangleOfSize: CGSize(width: defaultWidth, height: defaultHeight))
-        
+    init(color: UIColor, size: CGSize, position: CGPoint) {
         super.init(texture: nil, color: color, size: size)
         //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
+        userInteractionEnabled = true
         
-        body.affectedByGravity = false
-        body.dynamic = true
-        body.restitution = 0
+        self.position = position
+        let body = SKPhysicsBody(rectangleOfSize: size)
+        body.dynamic = false
         body.categoryBitMask = Mask.OBSTACLE
         body.collisionBitMask = Mask.HERO | Mask.GROUND
         body.contactTestBitMask = Mask.HERO | Mask.GROUND
-        
+        body.allowsRotation = false
         self.physicsBody = body
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: position.x, upperLimit: position.x))]
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,22 +40,52 @@ class Wall : Obstacle {
     }    
     
     func raise() {
-        self.physicsBody?.affectedByGravity = false
+        physicsBody?.dynamic = false
         if !isRaised {
-            self.runAction(SKAction.moveBy(CGVectorMake(0, 170), duration: 1))
-            isRaised = true
+            if let scene = scene as? GameScene {
+                runAction(SKAction.moveToY(scene.size.height * 4 / 3, duration: 1 as NSTimeInterval),
+                    withKey: RAISE_ACTION)
+                isRaised = true
+            }
         }
-    }
-    
-    func cancelRising() {
-        self.removeAllActions()
-        self.physicsBody?.affectedByGravity = true
     }
     
     func lower() {
-        if isRaised {
-            self.runAction(SKAction.moveBy(CGVectorMake(0, -170), duration: 1))
-            isRaised = false
+        removeActionForKey(RAISE_ACTION)
+        if (!affected && isRaised) {
+            physicsBody?.dynamic = true
         }
     }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+
+    }
+    
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if let scene = scene as? GameScene {
+            if let item = scene.heroNode.activatedItem {
+                item.cast(self)
+            }
+        }
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
+        case (Mask.GROUND, Mask.OBSTACLE): fallthrough
+        case (Mask.OBSTACLE, Mask.GROUND):
+            isRaised = false
+            println(contact.collisionImpulse)
+            if contact.collisionImpulse < 750 {
+                physicsBody?.dynamic = false
+            }
+            return
+        default:
+            return
+        }
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
+    }
+    
 }
