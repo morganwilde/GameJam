@@ -51,12 +51,14 @@ class HeroNode: SKSpriteNode {
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-//        anchorPoint = CGPoint(x: 0, y: 0)
+        name = "hero"
         
         physicsBody = SKPhysicsBody(texture: texture, size: size)
+        physicsBody?.mass = 20000
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.allowsRotation = false
         
         // Create the textures arrays
         for i in 0...16 {
