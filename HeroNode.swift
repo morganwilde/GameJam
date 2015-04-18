@@ -38,7 +38,7 @@ enum MovementDirection {
     case Left
 }
 
-class HeroNode: SKSpriteNode {
+class HeroNode: SKSpriteNode, Contactable {
     
     var items: [Item] = []
     var activatedItem: Item?
@@ -105,5 +105,30 @@ class HeroNode: SKSpriteNode {
         }
         
         return animation
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == Mask.ITEM && contact.bodyB.node == self {
+            var pickedUpItem = contact.bodyA.node as! Item
+            if !pickedUpItem.pickedUp {
+                pickedUpItem.pickedUp = true
+                pickedUpItem.getCollected()
+                items.append(pickedUpItem)
+            }
+        }
+        else if contact.bodyB.categoryBitMask == Mask.ITEM && contact.bodyA.node == self {
+            var pickedUpItem = contact.bodyB.node as! Item
+            if !pickedUpItem.pickedUp {
+                pickedUpItem.pickedUp = true
+                pickedUpItem.getCollected()
+                items.append(pickedUpItem)
+            }
+        }
+    }
+    
+    
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
     }
 }

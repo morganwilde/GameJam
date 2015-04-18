@@ -10,6 +10,7 @@ import SpriteKit
 
 class Item : SKSpriteNode, Contactable{
     
+    var pickedUp = false
     
     init(){
         super.init(texture: SKTexture(imageNamed: "ring.png"), color: SKColor.redColor(), size: CGSize(width: 40, height: 40))
@@ -37,12 +38,7 @@ class Item : SKSpriteNode, Contactable{
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        if contact.bodyA.categoryBitMask == Mask.HERO && contact.bodyB.node == self {
-            getCollected()
-        }
-        else if contact.bodyB.categoryBitMask == Mask.HERO && contact.bodyA.node == self {
-            getCollected()
-        }
+
     }
     
     func didEndContact(contact: SKPhysicsContact) {
