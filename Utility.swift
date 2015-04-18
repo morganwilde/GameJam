@@ -21,7 +21,7 @@ class Utility : SKSpriteNode, Contactable {
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
-            ++contactCount
+//            ++contac	tCount
             if (interactionNode == nil) {
                 // Create interaction button if it doesn't exist
                 interactionNode = InteractionNode(title: "Do you even lift?", onActionBegan: { () -> () in
@@ -46,8 +46,8 @@ class Utility : SKSpriteNode, Contactable {
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
-            --contactCount
-            if contactCount == 0 {
+//            --contactCount
+//            if contactCount == 0 {
                 // Remove interaction node after a prefixed amount of time
                 runAction(SKAction.runBlock({ () -> Void in
                     if let scene = self.scene as? GameScene {
@@ -58,7 +58,7 @@ class Utility : SKSpriteNode, Contactable {
                         self.interactionNode = nil
                     }
                 }))
-            }
+//            }
             return
         default:
             return

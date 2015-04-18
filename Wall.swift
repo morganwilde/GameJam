@@ -21,7 +21,6 @@ class Wall : Obstacle, Contactable, Affectable {
     
     init(color: UIColor, size: CGSize, position: CGPoint) {
         super.init(texture: nil, color: color, size: size)
-        //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
         userInteractionEnabled = true
         
         self.position = position

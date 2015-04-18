@@ -29,9 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var mapNode: MapNode!
     var heroNode: HeroNode!
     var wallNode: Wall!
-    
-    
-    
+
     override init(size: CGSize) {
         super.init(size: size)
         
@@ -76,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonGoUp.position = CGPoint(x: size.width - 10 - buttonGoUp.size.width, y: 70)
         
         addChild(buttonGoLeft)
-        addChild(buttonGogRight)
+        addChild(buttonGoRight)
         addChild(buttonGoUp)
         
         // Add hero
@@ -87,17 +85,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 50, y: 50)
+        buttonNode.position = CGPoint(x: 50, y: mapNode.mesurmentsGround)
         mapNode.addChild(buttonNode)
         
         // Add wall
-        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height),
-            position: CGPoint(x: 450, y: 50 + size.height / 2))
+        let wallWidth = 30 as CGFloat
+        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: wallWidth, height: size.height),
+            position: CGPoint(x: 450, y: size.height / 2 + CGFloat(mapNode.mesurmentsGround)))
         mapNode.addChild(wallNode)
-        
+
         // Add item
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
-        itemNode.position = CGPoint(x: 50, y: 100)
+        itemNode.position = CGPoint(x: -200, y: mapNode.mesurmentsGround)
         mapNode.addChild(itemNode)
         
         // Add level complete thingy
