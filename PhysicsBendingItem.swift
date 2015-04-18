@@ -40,7 +40,7 @@ class PhysicsBendingItem : Item{
         var text = SKLabelNode(fontNamed: "Arial")
         text.text = "\(name!) of \(effect!.name!)"
         text.fontColor = SKColor.whiteColor()
-        text.fontSize = 18
+        text.fontSize = 12
         var background = SKSpriteNode(texture: nil, color: SKColor.blackColor(), size: text.frame.size)
         
         background.position = CGPoint(x: frame.maxX, y: frame.midY + frame.height)

@@ -101,7 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         mapNode.addChild(itemNode)
 
         itemNode.displayItemName()
-        addChild(itemNode.displayText!)
+        mapNode.addChild(itemNode.displayText!)
         
         // Add level complete thingy
         let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
