@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add hero
         heroNode = HeroNode()
-        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: 100)
+        heroNode.position = CGPoint(x: size.width/2 - heroNode.frame.width/2, y: heroNode.size.height + 50)
         mapNode.addChild(heroNode)
         
         // Add button
@@ -58,18 +58,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let buttonGoLeft = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
-            title: "Left")
+            title: "Left",
+            onActionBegan: {
+                self.heroNode.moveInDirection(.Left)
+            },
+            onActionEnded: nil)
+        
         let buttonGoRight = ControlNode(
             size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),
-            title: "Right")
-        
-        buttonGoLeft.actionOnBegan = {
-            self.heroNode.moveInDirection(.Left)
-        }
-        buttonGoRight.actionOnBegan = {
-            self.heroNode.moveInDirection(.Right)
-        }
+            title: "Right",
+            onActionBegan: {
+                self.heroNode.moveInDirection(.Right)
+            },
+            onActionEnded: nil)
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPoint(x: buttonGoLeft.position.x + buttonGoLeft.size.width + 10, y: 10)
