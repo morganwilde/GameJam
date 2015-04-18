@@ -15,7 +15,10 @@ class Utility : SKSpriteNode, Contactable {
     let REMOVE_DELAY = 1 as NSTimeInterval
     var interactionNode : InteractionNode?
 
+    
+    
     func didBeginContact(contact: SKPhysicsContact) {
+        println(contact.hashValue)
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
@@ -40,6 +43,7 @@ class Utility : SKSpriteNode, Contactable {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
             println("Ended contact with hero!")
+            println("\(contact.contactPoint.x), \(contact.contactPoint.y)")
             // Remove interaction node after a prefixed amount of time
             runAction(SKAction.sequence([
                 SKAction.waitForDuration(REMOVE_DELAY),
