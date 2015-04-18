@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Item : SKSpriteNode{
+class Item : SKSpriteNode, Contactable{
     
     
     init(){
@@ -24,7 +24,7 @@ class Item : SKSpriteNode{
         physicsBody?.collisionBitMask = Mask.ITEM | Mask.GROUND | Mask.HERO | Mask.OBSTACLE | Mask.EFFECT
         physicsBody?.contactTestBitMask = Mask.ITEM | Mask.GROUND | Mask.HERO | Mask.OBSTACLE | Mask.EFFECT
         
-        
+        name = "item"
     }
 
     func getCollected(){
@@ -36,7 +36,18 @@ class Item : SKSpriteNode{
         super.init(coder: aDecoder)
     }
     
+    func didBeginContact(contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == Mask.HERO && contact.bodyB.node == self {
+            getCollected()
+        }
+        else if contact.bodyB.categoryBitMask == Mask.HERO && contact.bodyA.node == self {
+            getCollected()
+        }
+    }
     
+    func didEndContact(contact: SKPhysicsContact) {
+        
+    }
     
     func effect(){
         
