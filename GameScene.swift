@@ -67,6 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonGoLeft.actionOnBegan = {
             self.heroNode.moveInDirection(.Left)
         }
+        
         buttonGoRight.actionOnBegan = {
             self.heroNode.moveInDirection(.Right)
         }
