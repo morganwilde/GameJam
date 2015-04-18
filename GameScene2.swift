@@ -78,18 +78,15 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
     }
     
     func centerOnNode(node: SKNode) {
+        let nodesVisibleBelow = 3 as CGFloat
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
-            y: -(node.position.y / 2) + CGFloat(mapNode.mesurmentsGround) * 2)
+            y: mapNode.position.y + frame.height/2 - cameraPositionInScene!.y - node.frame.height/2 + (CGFloat(mapNode.mesurmentsGround) * nodesVisibleBelow / 2))
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func update(currentTime: NSTimeInterval) {
-        mapNode.updateScreenPos(self.heroNode.position)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
