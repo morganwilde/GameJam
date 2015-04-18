@@ -15,6 +15,7 @@ class MapNode: SKSpriteNode {
     var startMap: Double = 0
     var endMap: Double = 0
     
+    var cloudName: String!
     let mesurmentsGround: Double = 35
     let mesurmentsWall: Double = 260
     var screenPos: CGPoint = CGPoint(x: 0, y: 0)
@@ -24,12 +25,13 @@ class MapNode: SKSpriteNode {
     var cloudCreatedY = 0
     var cloudCreatedHeight = 0
 
-    init(_ size: CGSize) {
+    init(_ size: CGSize, name: String, cloud: String) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         //generateGround(0,y: 0,count: 0)
         //generateWall()
+        cloudName = cloud
         self.name = NodeName.MAP
-        createBackground1()
+        createBackground1(name)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -122,7 +124,7 @@ class MapNode: SKSpriteNode {
     }
     
     func createCloud(x: Int, y: Int, scale: Int){
-        var node = SKSpriteNode(imageNamed: "cloud.png")
+        var node = SKSpriteNode(imageNamed: cloudName)
         node.xScale = CGFloat(scale) * 0.1
         node.yScale = CGFloat(scale) * 0.1
         //node.size = CGSize(width: 50, height: 50)
@@ -131,8 +133,8 @@ class MapNode: SKSpriteNode {
         addChild(node)
     }
     
-    func createBackground1(){
-        var node = SKSpriteNode(imageNamed: "background1.png")
+    func createBackground1(name: NSString){
+        var node = SKSpriteNode(imageNamed: name as String)
         node.zPosition = -1
         node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.frame.width*2, height: self.frame.height*2))
         node.physicsBody?.pinned = true
@@ -146,8 +148,13 @@ class MapNode: SKSpriteNode {
         
         let start: Double = Double(0)
         var end: Double = generateGround(start, y: 0, count: 1)
+        
+        createBlock(1, blocksCountY: 50, blockWidth: end, blockHeight: mesurmentsGround, startingPosX: 0, startingPosY: -mesurmentsGround*50)
+        
         let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
-        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
+        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*5, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*5, startingPosY: 0)
+        
+        
         var shift: Int = 9
         for(var i=0;i<50;i++){
 
@@ -170,7 +177,8 @@ class MapNode: SKSpriteNode {
             
             
             //kuriamas apacioje
-            createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 1000)
+            createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 200)
+            
             
             end = end + Double(mesurmentsGround)
         }

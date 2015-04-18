@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         anchorPoint = CGPoint(x: 0, y: 0)
         physicsWorld.contactDelegate = self
         
-        mapNode = MapNode(size)
+        mapNode = MapNode(size , name: "background1.png", cloud: "cloud.png")
         addChild(mapNode)
         mapNode.createLevel1()
         
