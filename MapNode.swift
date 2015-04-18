@@ -29,10 +29,7 @@ class MapNode: SKSpriteNode {
         //generateGround(0,y: 0,count: 0)
         //generateWall()
         self.name = NodeName.MAP
-        createLevel1()
         createBackground1()
-        //createClouds()
-        createLevel2()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -239,6 +236,7 @@ class MapNode: SKSpriteNode {
         groundBlock.physicsBody?.contactTestBitMask = Mask.HERO
         groundBlock.physicsBody?.affectedByGravity = false
         groundBlock.physicsBody?.allowsRotation = false
+        groundBlock.physicsBody?.restitution = 0
         
         return groundBlock
         
