@@ -97,6 +97,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add item
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
         itemNode.position = CGPoint(x: -200, y: mapNode.mesurmentsGround)
+        itemNode.size.width = 40
+        itemNode.size.height = 25
         mapNode.addChild(itemNode)
 
         itemNode.displayItemName()
@@ -126,7 +128,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
-            y: mapNode.position.y)
+            y: -(node.position.y / 2) + CGFloat(mapNode.mesurmentsGround) + CGFloat(mapNode.mesurmentsGround) / 2 - 5)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
