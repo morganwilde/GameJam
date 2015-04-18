@@ -150,6 +150,7 @@ class MapNode: SKSpriteNode {
         createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
         var shift: Int = 9
         for(var i=0;i<50;i++){
+
             if(i%2 == 0){
                 var random = Int(arc4random_uniform(3))
                 
