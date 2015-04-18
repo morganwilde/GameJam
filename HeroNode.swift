@@ -52,7 +52,7 @@ class HeroNode: SKSpriteNode, Contactable {
         super.init(texture: texture, color: UIColor.clearColor(), size: CGSizeMake(texture.size().width * 4 / 5, texture.size().height * 4 / 5))
         
         name = "hero"
-        physicsBody = SKPhysicsBody(texture: texture, size: size)
+        physicsBody = SKPhysicsBody(rectangleOfSize: size)
         physicsBody!.dynamic = true
         physicsBody!.categoryBitMask = Mask.HERO
         physicsBody!.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
@@ -85,8 +85,8 @@ class HeroNode: SKSpriteNode, Contactable {
     func moveInDirection(direction: MovementDirection) {
         
         switch (direction) {
-        case .Right:    movement = SKAction.moveBy(CGVector(dx: 15, dy: 0), duration: 0.05)
-        case .Left:     movement = SKAction.moveBy(CGVector(dx: -15, dy: 0), duration: 0.05)
+        case .Right:    movement = SKAction.moveBy(CGVector(dx: 3, dy: 0), duration: 0.01)
+        case .Left:     movement = SKAction.moveBy(CGVector(dx: -3, dy: 0), duration: 0.01)
         default:        movement = SKAction()
         }
         
