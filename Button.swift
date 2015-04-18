@@ -13,7 +13,7 @@ class Button : Utility {
     
     struct Const {
         static let DEFAULT_WIDTH = 50 as CGFloat
-        static let DEFAULT_HEIGHT = 50 as CGFloat
+        static let DEFAULT_HEIGHT = 8 as CGFloat
         static let DEFAULT_PUSH_DURATION = 0.5 as NSTimeInterval
     }
     
@@ -25,7 +25,7 @@ class Button : Utility {
     
     init() {
         INITIAL_HEIGHT = Const.DEFAULT_HEIGHT
-        super.init(texture: nil, color: SKColor.blueColor(),
+        super.init(texture: nil, color: UIColor(red: 189/255.0, green: 64/255.0, blue: 64/255.0, alpha: 255),
             size: CGSizeMake(Const.DEFAULT_WIDTH, Const.DEFAULT_HEIGHT))
         anchorPoint = CGPointMake(0, 0)
         
