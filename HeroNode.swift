@@ -43,6 +43,7 @@ class HeroNode: SKSpriteNode, Contactable {
     var items: [Item] = []
     var inventorySlots: [InventorySlot] = []
     var activatedItem: Item?
+    var footing:NSInteger = 0
     // Textures
     var texturesWalkLeft = [SKTexture]()
     var texturesWalkRight = [SKTexture]()
@@ -52,11 +53,13 @@ class HeroNode: SKSpriteNode, Contactable {
         super.init(texture: texture, color: UIColor.clearColor(), size: CGSizeMake(texture.size().width * 4 / 5, texture.size().height * 4 / 5))
         
         name = "hero"
+        physicsBody?.dynamic = true
         physicsBody = SKPhysicsBody(rectangleOfSize: size)
-        physicsBody!.dynamic = true
-        physicsBody!.categoryBitMask = Mask.HERO
-        physicsBody!.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
-        physicsBody!.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.categoryBitMask = Mask.HERO
+        physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.restitution = 0
+        physicsBody?.allowsRotation = false;
 
         // Create the textures arrays
         for i in 0...16 {
@@ -83,7 +86,7 @@ class HeroNode: SKSpriteNode, Contactable {
     
     // Methods
     func moveInDirection(direction: MovementDirection) {
-        
+        var movement: SKAction
         switch (direction) {
         case .Right:    movement = SKAction.moveBy(CGVector(dx: 3, dy: 0), duration: 0.01)
         case .Left:     movement = SKAction.moveBy(CGVector(dx: -3, dy: 0), duration: 0.01)
@@ -93,6 +96,14 @@ class HeroNode: SKSpriteNode, Contactable {
         
         runAction(SKAction.group([SKAction.repeatActionForever(movement), animationWalkingInDirection(direction)]), withKey: "heroRun")
     }
+    
+    func jump(){
+        if footing > 0 {
+            self.runAction(SKAction.moveBy(CGVector(dx: 0, dy: scene!.frame.height * 2), duration: 1.5))
+            println("wut")
+        }
+    }
+    
     func addItem(item: Item) {
         items.append(item)
     }
@@ -119,6 +130,14 @@ class HeroNode: SKSpriteNode, Contactable {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        
+        if contact.bodyA.categoryBitMask == Mask.HERO && contact.bodyB.categoryBitMask == Mask.GROUND{
+            footing++
+        } else if contact.bodyB.categoryBitMask == Mask.HERO && contact.bodyA.categoryBitMask == Mask.GROUND{
+            footing++
+        }
+        
+        
         if contact.bodyA.categoryBitMask == Mask.ITEM && contact.bodyB.node == self {
             var pickedUpItem = contact.bodyA.node as! Item
             if !pickedUpItem.pickedUp {
@@ -161,6 +180,11 @@ class HeroNode: SKSpriteNode, Contactable {
     }
     
     func didEndContact(contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == Mask.HERO && contact.bodyB.categoryBitMask == Mask.GROUND{
+            footing--
+        } else if contact.bodyB.categoryBitMask == Mask.HERO && contact.bodyA.categoryBitMask == Mask.GROUND{
+            footing--
+        }
         
     }
 }
