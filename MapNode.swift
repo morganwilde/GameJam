@@ -14,13 +14,14 @@ class MapNode: SKSpriteNode {
     
     let mesurmentsGround: Double = 50
     let mesurmentsWall: Double = 200
-    
+    var screenPos: CGPoint = CGPoint(x: 0, y: 0)
 
     init(_ size: CGSize) {
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         //generateGround(0,y: 0,count: 0)
         //generateWall()
-        //createLevel1()
+        createLevel1()
+        createBackground1()
         createLevel2()
     }
 
@@ -38,12 +39,28 @@ class MapNode: SKSpriteNode {
         
     }
     
+    func updateScreenPos(position: CGPoint) {
+        
+        
+        
+    }
+    
+    func createBackground1(){
+        var node = SKSpriteNode(imageNamed: "background1.png")//, size: CGSize(width: self.frame.width, height: self.frame.height))
+        node.position = CGPoint(x: self.frame.width/2,y: self.frame.height/2)
+        node.zPosition = -1
+        addChild(node)
+        
+    }
+    
     func createLevel2() {
         
-        var ground = createGround(300, y: 300, width: 50, height: 50)//(1, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: 300, startingPosY: 300)
-        var sprite = randomObj()
-        addChild(ground)
-        addChild(sprite)
+//        var ground = createGround(300, y: 300, width: 50, height: 50)//(1, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: 300, startingPosY: 300)
+//        var sprite = randomObj()
+//        addChild(ground)
+//        addChild(sprite)
+        
+        
         
     }
     
