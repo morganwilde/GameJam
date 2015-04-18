@@ -30,6 +30,8 @@ class AreaOfEffect: SKSpriteNode{
         
     }
     
+    
+    
     func applyTo(target:SKNode){
         effect?.applyEffect(target)
     }

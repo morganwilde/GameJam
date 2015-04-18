@@ -20,11 +20,23 @@ class Item : SKSpriteNode{
         
         userInteractionEnabled = true
         
+        physicsBody?.categoryBitMask = Mask.ITEM
+        physicsBody?.collisionBitMask = Mask.ITEM | Mask.GROUND | Mask.HERO | Mask.OBSTACLE | Mask.EFFECT
+        physicsBody?.contactTestBitMask = Mask.ITEM | Mask.GROUND | Mask.HERO | Mask.OBSTACLE | Mask.EFFECT
+        
+        
     }
 
+    func getCollected(){
+        runAction(SKAction.removeFromParent())
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    
     
     func effect(){
         
