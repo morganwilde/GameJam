@@ -19,11 +19,17 @@ struct Mask {
     static let EFFECT       = 0x1 << 7 as UInt32
 }
 
+struct NodeName {
+    static let MAP          = "MapNode"
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var mapNode: MapNode!
     var heroNode: HeroNode!
     var wallNode: Wall!
+    
+    
     
     override init(size: CGSize) {
         super.init(size: size)
