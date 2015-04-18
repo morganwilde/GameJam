@@ -9,26 +9,27 @@
 import Foundation
 import SpriteKit
 
-class Wall : Obstacle {
+class Wall : Obstacle, Contactable {
     
-    let body : SKPhysicsBody
     let defaultWidth = 20
     let defaultHeight = 100
     var isRaised = false
     
-    var isBeingRisen = false
+//    let default
     
-    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
-        body = SKPhysicsBody(rectangleOfSize: size)
-        
+    init(color: UIColor, size: CGSize, position: CGPoint) {
         super.init(texture: nil, color: color, size: size)
         //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
         userInteractionEnabled = true
+        
+        self.position = position
+        let body = SKPhysicsBody(rectangleOfSize: size)
         body.dynamic = false
         body.categoryBitMask = Mask.OBSTACLE
         body.collisionBitMask = Mask.HERO | Mask.GROUND
         body.contactTestBitMask = Mask.HERO | Mask.GROUND
-        
+        body.allowsRotation = false
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: position.x, upperLimit: position.x))]
         self.physicsBody = body
     }
 
@@ -40,19 +41,22 @@ class Wall : Obstacle {
         self.physicsBody?.affectedByGravity = false
         if !isRaised {
             if let scene = scene as? GameScene {
-                self.runAction(SKAction.moveBy(CGVectorMake(0, scene.heroNode.size.height), duration: 1))
-                isRaised = true
+                self.runAction(SKAction.sequence([
+                    SKAction.moveToY(scene.size.height * 4 / 3, duration: 1 as NSTimeInterval),
+                    SKAction.runBlock({ () -> Void in
+                        self.isRaised = true
+                    })
+                ]))
+//                self.isRaised = true
             }
         }
     }
     
     func lower() {
         self.removeAllActions()
-        self.physicsBody?.affectedByGravity = true
-        
-        if isRaised {
-            self.runAction(SKAction.moveToY(size.height / 2, duration: 1))
-            isRaised = false
+        if (isRaised) {
+            physicsBody?.dynamic = true
+            self.physicsBody?.affectedByGravity = true
         }
     }
     
@@ -66,4 +70,22 @@ class Wall : Obstacle {
             parentScene.heroNode.activatedItem!.cast(self)
         }
     }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
+        case (Mask.GROUND, Mask.OBSTACLE): fallthrough
+        case (Mask.OBSTACLE, Mask.GROUND):
+            isRaised = false
+            self.physicsBody?.dynamic = true
+            return
+        default:
+            return
+        }
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
+    }
+    
+    
 }

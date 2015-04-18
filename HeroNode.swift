@@ -52,6 +52,7 @@ class HeroNode: SKSpriteNode, Contactable {
         super.init(texture: texture, color: UIColor.clearColor(), size: CGSizeMake(texture.size().width * 4 / 5, texture.size().height * 4 / 5))
         
         name = "hero"
+        physicsBody?.dynamic = true
         physicsBody = SKPhysicsBody(rectangleOfSize: size)
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
@@ -64,7 +65,7 @@ class HeroNode: SKSpriteNode, Contactable {
         }
     }
     
-    func constraintMovement() {
+    func constrainMovement() {
         let mapNode = parent as! MapNode
         constraints = [SKConstraint.positionX(SKRange(lowerLimit: CGFloat(mapNode.startMap) + size.width,
             upperLimit: CGFloat(mapNode.endMap) - size.width))]
