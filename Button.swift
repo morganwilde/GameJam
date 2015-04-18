@@ -35,7 +35,6 @@ class Button : Utility {
         physicsBody!.categoryBitMask = Mask.UTILITY
         physicsBody!.contactTestBitMask = Mask.HERO
         physicsBody!.collisionBitMask = Mask.HERO
-        push()
     }
     
     func push() {

@@ -18,11 +18,10 @@ class Utility : SKSpriteNode, Contactable {
     
     
     func didBeginContact(contact: SKPhysicsContact) {
-        println(contact.hashValue)
         switch (contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask) {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
-            println("Contacted with hero!")
+            println("Began contact with hero!")
             if (interactionNode == nil) {
                 // Create interaction button if it doesn't exist
                 interactionNode = InteractionNode(title: "Do you even lift?")
@@ -43,12 +42,10 @@ class Utility : SKSpriteNode, Contactable {
         case (Mask.HERO, Mask.UTILITY): fallthrough
         case (Mask.UTILITY, Mask.HERO):
             println("Ended contact with hero!")
-            println("\(contact.contactPoint.x), \(contact.contactPoint.y)")
             // Remove interaction node after a prefixed amount of time
             runAction(SKAction.sequence([
                 SKAction.waitForDuration(REMOVE_DELAY),
                 SKAction.runBlock({ () -> Void in
-                    println("Removal action run")
                     if let interactionNode = self.interactionNode {
                         self.interactionNode!.removeFromParent()
                         self.interactionNode = nil

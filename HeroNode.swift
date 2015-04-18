@@ -48,7 +48,6 @@ class HeroNode: SKSpriteNode {
     
     init() {
         let texture = SKTexture(imageNamed: "Hero.png")
-        
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         name = "hero"
@@ -58,8 +57,9 @@ class HeroNode: SKSpriteNode {
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
-        physicsBody?.allowsRotation = false
+
         
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: -scene.frame.width, upperLimit: <#CGFloat#>), y: SKRange(0, 0))]
         // Create the textures arrays
         for i in 0...16 {
             texturesWalkRight.append(SKTexture(imageNamed: String(format: "Walking animation%02d.png", i)))
