@@ -70,7 +70,7 @@ class HeroNode: SKSpriteNode, Contactable {
     
     func constrainMovement() {
         let mapNode = parent as! MapNode
-        constraints = [SKConstraint.positionX(SKRange(lowerLimit: CGFloat(mapNode.startMap) + size.width,
+        constraints = [SKConstraint.positionX(SKRange(lowerLimit: CGFloat(mapNode.startMap) + size.width / 2,
             upperLimit: CGFloat(mapNode.endMap) - size.width))]
     }
     
@@ -78,16 +78,23 @@ class HeroNode: SKSpriteNode, Contactable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func stop(){
+        removeActionForKey("heroRun")
+    }
+    
+    var movement: SKAction!
+    
     // Methods
     func moveInDirection(direction: MovementDirection) {
         var movement: SKAction
         switch (direction) {
-        case .Right:    movement = SKAction.moveByX(50, y: 0, duration: 0.25)
-        case .Left:     movement = SKAction.moveByX(-50, y: 0, duration: 0.25)
+        case .Right:    movement = SKAction.moveBy(CGVector(dx: 3, dy: 0), duration: 0.01)
+        case .Left:     movement = SKAction.moveBy(CGVector(dx: -3, dy: 0), duration: 0.01)
         default:        movement = SKAction()
         }
         
-        runAction(SKAction.group([movement, animationWalkingInDirection(direction)]))
+        
+        runAction(SKAction.group([SKAction.repeatActionForever(movement), animationWalkingInDirection(direction)]), withKey: "heroRun")
     }
     
     func jump(){
@@ -118,8 +125,8 @@ class HeroNode: SKSpriteNode, Contactable {
         case .Left: animation = SKAction.animateWithTextures(texturesWalkLeft, timePerFrame: 0.016)
         default: animation = SKAction()
         }
-        
-        return animation
+        return SKAction.repeatActionForever(animation)
+       
     }
     
     func didBeginContact(contact: SKPhysicsContact) {

@@ -17,6 +17,7 @@ struct Mask {
     static let OBSTACLE     = 0x1 << 5 as UInt32
     static let GROUND       = 0x1 << 6 as UInt32
     static let EFFECT       = 0x1 << 7 as UInt32
+    static let SUCCESS      = 0x1 << 8 as UInt32
 }
 
 struct NodeName {
@@ -48,7 +49,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             onActionBegan: {
                 self.heroNode.moveInDirection(.Left)
             },
-            onActionEnded: nil)
+            onActionEnded: {
+                self.heroNode.stop()
+            })
         
         let buttonGoRight = ControlNode(
             size: CGSize(width: 50, height: 50),
@@ -57,7 +60,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             onActionBegan: {
                 self.heroNode.moveInDirection(.Right)
             },
-            onActionEnded: nil)
+            onActionEnded: {
+                self.heroNode.stop()
+            })
         
         let buttonGoUp = ControlNode(size: CGSize(width: 50, height: 50),
             color: UIColor.whiteColor(),

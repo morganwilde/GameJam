@@ -13,28 +13,24 @@ class StopGravityEffect : Effect {
     override func applyEffect(target: SKNode) {
         
         let oldVelocity = target.physicsBody?.velocity
-        let oldAffectedByGravity = target.physicsBody?.affectedByGravity
         let oldDynamic = target.physicsBody?.dynamic
         
-        target.runAction(SKAction.sequence([
-            SKAction.runBlock({
-                //target.physicsBody?.affectedByGravity = false
-                target.physicsBody?.dynamic = false
-                target.physicsBody?.velocity = CGVector.zeroVector
-                
-                target.alpha = 0.3
-            }), SKAction.waitForDuration(5),
-            
-            SKAction.runBlock({
-                target.physicsBody?.affectedByGravity = oldAffectedByGravity!
-                target.physicsBody?.dynamic = oldDynamic!
-                target.physicsBody?.velocity = oldVelocity!
-                
-                target.alpha = 1
-            })
-            
-            
+        if let affectable = target as? Affectable {
+            target.runAction(SKAction.sequence([
+                SKAction.runBlock({
+                    affectable.affected = true
+                    target.physicsBody?.velocity = CGVector.zeroVector
+                    target.alpha = 0.3
+                }),
+                SKAction.waitForDuration(5),
+                SKAction.runBlock({
+                    affectable.affected = false
+                    target.physicsBody?.dynamic = true
+                    target.physicsBody?.velocity = oldVelocity!
+                    target.alpha = 1
+                })
             ]))
+        }
     }
     
 }
