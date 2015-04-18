@@ -29,7 +29,6 @@ class RemoveCollisionsEffect : Effect {
                 target.physicsBody?.collisionBitMask = Mask.GROUND
                 println("Removed collision")
                 
-                
                 target.alpha = 0.2
             }), SKAction.waitForDuration(5),
             

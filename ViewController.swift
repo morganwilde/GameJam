@@ -22,10 +22,10 @@ class ViewController: UIViewController {
         
         sceneCurrent = GameScene(size: spriteView.frame.size)
         
-//        spriteView.presentScene(sceneCurrent)
+        spriteView.presentScene(sceneCurrent)
         
-        scene2 = GameScene2(size: spriteView.frame.size)
-        spriteView.presentScene(scene2)
+//        scene2 = GameScene2(size: spriteView.frame.size)
+//        spriteView.presentScene(scene2)
         
         spriteView.showsPhysics = true
     }
