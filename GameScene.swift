@@ -85,7 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 50, y: mapNode.mesurmentsGround)
+        buttonNode.position = CGPoint(x: 80, y: mapNode.mesurmentsGround)
         mapNode.addChild(buttonNode)
         
         // Add wall
