@@ -85,8 +85,8 @@ class HeroNode: SKSpriteNode, Contactable {
     func moveInDirection(direction: MovementDirection) {
         
         switch (direction) {
-        case .Right:    movement = SKAction.moveBy(CGVector(dx: 5, dy: 0), duration: 0.05)
-        case .Left:     movement = SKAction.moveBy(CGVector(dx: -5, dy: 0), duration: 0.05)
+        case .Right:    movement = SKAction.moveBy(CGVector(dx: 15, dy: 0), duration: 0.05)
+        case .Left:     movement = SKAction.moveBy(CGVector(dx: -15, dy: 0), duration: 0.05)
         default:        movement = SKAction()
         }
         
