@@ -40,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         mapNode = MapNode(size)
         addChild(mapNode)
+        mapNode.createLevel1()
         
         // Controls
         let buttonGoLeft = ControlNode(
@@ -98,9 +99,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
         itemNode.position = CGPoint(x: 50, y: 100)
         mapNode.addChild(itemNode)
+
         itemNode.displayItemName()
         addChild(itemNode.displayText!)
         
+        // Add level complete thingy
+        let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
+        let lvlCompleteNode = LevelCompleteNode(texture: lvlCompleteTexture, size: CGSize(width: 43, height: 50))
+        lvlCompleteNode.position.x = CGFloat(mapNode.endMap) - lvlCompleteNode.size.width - 20
+        lvlCompleteNode.position.y = 100
+        mapNode.addChild(lvlCompleteNode)
     }
 
     required init?(coder aDecoder: NSCoder) {
