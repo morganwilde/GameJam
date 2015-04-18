@@ -71,7 +71,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
-        buttonGoUp.position = CGPoint(x: size.width - 10 - buttonGoUp.size.width, y: 70)
+        buttonGoUp.position = CGPoint(
+            x: size.width/2 - buttonGoUp.size.width/2,
+            y: 10)
         
         addChild(buttonGoLeft)
         addChild(buttonGoRight)

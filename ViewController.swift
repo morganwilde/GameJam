@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         scene2 = GameScene2(size: spriteView.frame.size)
         spriteView.presentScene(scene2)
         
-        spriteView.showsPhysics = true
+//        spriteView.showsPhysics = true
     }
     
 }
