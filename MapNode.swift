@@ -148,13 +148,15 @@ class MapNode: SKSpriteNode {
         
         let start: Double = Double(0)
         var end: Double = generateGround(start, y: 0, count: 1)
+        var bottom: Double = 0
         
         createBlock(1, blocksCountY: 50, blockWidth: end, blockHeight: mesurmentsGround, startingPosX: 0, startingPosY: -mesurmentsGround*50)
         
+
         let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
         createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*5, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*5, startingPosY: 0)
         
-        
+
         var shift: Int = 9
         for(var i=0;i<50;i++){
 
@@ -178,19 +180,33 @@ class MapNode: SKSpriteNode {
                 
                 //kuriamas apacioje
                 createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 600)
+
+                lowestY(-mesurmentsGround*Double(shift) - 600)
             }else{
+                //kuriamas virsuje
+                createBlockObstacle(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift))
                 
+                //kuriamas apacioje
+                createBlockObstacle(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 600)
             }
             
             end = end + Double(mesurmentsGround)
         }
         createBlock(10, blocksCountY: 1, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 600)
+    
+        lowestY(-mesurmentsGround*Double(shift) - 600)
         end = end + Double(mesurmentsGround) * 10
 //        createBlock(40, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: start, startingPosY: 0)
-        
         startMap = start
         endMap = end
         
+    }
+    
+    var lowest: Double = 0
+    func lowestY(x: Double){
+        if(lowest > x){
+            lowest = x
+        }
     }
     
     func createLevel1(){
@@ -220,12 +236,28 @@ class MapNode: SKSpriteNode {
         
     }
     
+    func createBlockObstacle(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){
+        for (var i=0; i<blocksCountX; i++){
+            for (var j=0; j<blocksCountY; j++){
+                addChild(createObstacle(startingPosX + Double(i) * Double(blockWidth) + blockWidth/2, y: startingPosY + Double(j) * Double(blockHeight) + blockHeight/2, width: blockWidth, height: blockHeight))
+            }
+        }
+    }
+    
     func createBlock(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){
         for (var i=0; i<blocksCountX; i++){
             for (var j=0; j<blocksCountY; j++){
                 addChild(createGround(startingPosX + Double(i) * Double(blockWidth) + blockWidth/2, y: startingPosY + Double(j) * Double(blockHeight) + blockHeight/2, width: blockWidth, height: blockHeight))
             }
         }
+    }
+    
+    func createObstacle(x: Double, y: Double, width: Double, height: Double) -> SKSpriteNode {
+     
+        var trap = TrapNode(color: UIColor.clearColor(), size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y))
+        
+        return trap
+        
     }
     
     func createGround(x: Double, y: Double, width: Double, height: Double) -> SKSpriteNode {
