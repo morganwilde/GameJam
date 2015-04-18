@@ -43,6 +43,7 @@ class HeroNode: SKSpriteNode, Contactable {
     var items: [Item] = []
     var inventorySlots: [InventorySlot] = []
     var activatedItem: Item?
+    var footing:NSInteger = 0
     // Textures
     var texturesWalkLeft = [SKTexture]()
     var texturesWalkRight = [SKTexture]()
@@ -57,6 +58,8 @@ class HeroNode: SKSpriteNode, Contactable {
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.restitution = 0
+        physicsBody?.allowsRotation = false;
 
         // Create the textures arrays
         for i in 0...16 {
@@ -86,6 +89,14 @@ class HeroNode: SKSpriteNode, Contactable {
         
         runAction(SKAction.group([movement, animationWalkingInDirection(direction)]))
     }
+    
+    func jump(){
+        if footing > 0 {
+            self.runAction(SKAction.moveBy(CGVector(dx: 0, dy: scene!.frame.height * 2), duration: 1.5))
+            println("wut")
+        }
+    }
+    
     func addItem(item: Item) {
         items.append(item)
     }
@@ -112,6 +123,14 @@ class HeroNode: SKSpriteNode, Contactable {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        
+        if contact.bodyA.categoryBitMask == Mask.HERO && contact.bodyB.categoryBitMask == Mask.GROUND{
+            footing++
+        } else if contact.bodyB.categoryBitMask == Mask.HERO && contact.bodyA.categoryBitMask == Mask.GROUND{
+            footing++
+        }
+        
+        
         if contact.bodyA.categoryBitMask == Mask.ITEM && contact.bodyB.node == self {
             var pickedUpItem = contact.bodyA.node as! Item
             if !pickedUpItem.pickedUp {
@@ -154,6 +173,11 @@ class HeroNode: SKSpriteNode, Contactable {
     }
     
     func didEndContact(contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == Mask.HERO && contact.bodyB.categoryBitMask == Mask.GROUND{
+            footing--
+        } else if contact.bodyB.categoryBitMask == Mask.HERO && contact.bodyA.categoryBitMask == Mask.GROUND{
+            footing--
+        }
         
     }
 }

@@ -59,11 +59,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             },
             onActionEnded: nil)
         
+        let buttonGoUp = ControlNode(size: CGSize(width: 50, height: 50),
+            color: UIColor.whiteColor(),
+            title: "Jump",
+            onActionBegan: { self.heroNode.jump() },
+            onActionEnded: nil)
+        
         buttonGoLeft.position = CGPoint(x: 10, y: 10)
         buttonGoRight.position = CGPointMake(size.width - 10 - buttonGoLeft.size.width, 10)
+        buttonGoUp.position = CGPoint(x: size.width - 10 - buttonGoUp.size.width, y: 70)
         
         addChild(buttonGoLeft)
         addChild(buttonGoRight)
+        addChild(buttonGoUp)
         
         // Add hero
         heroNode = HeroNode()
