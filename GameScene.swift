@@ -29,9 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var mapNode: MapNode!
     var heroNode: HeroNode!
     var wallNode: Wall!
-    
-    
-    
+
     override init(size: CGSize) {
         super.init(size: size)
         
@@ -81,24 +79,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add hero
         heroNode = HeroNode()
-        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 50)
+        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 100)
         mapNode.addChild(heroNode)
         heroNode.constrainMovement()
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 50, y: 50)
+        buttonNode.position = CGPoint(x: 50, y: mapNode.mesurmentsGround)
         mapNode.addChild(buttonNode)
         
         // Add wall
-        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: 50, height: size.height),
-            position: CGPoint(x: 450, y: 50 + size.height / 2))
+        let wallWidth = 30 as CGFloat
+        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: wallWidth, height: size.height),
+            position: CGPoint(x: 450, y: size.height / 2 + CGFloat(mapNode.mesurmentsGround)))
         mapNode.addChild(wallNode)
-        
+
         // Add item
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
-        itemNode.position = CGPoint(x: 50, y: 100)
+        itemNode.position = CGPoint(x: -200, y: mapNode.mesurmentsGround)
         mapNode.addChild(itemNode)
+
+        itemNode.displayItemName()
+        addChild(itemNode.displayText!)
+        
+        // Add level complete thingy
+        let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
+        let lvlCompleteNode = LevelCompleteNode(texture: lvlCompleteTexture, size: CGSize(width: 43, height: 50))
+        lvlCompleteNode.position.x = CGFloat(mapNode.endMap) - lvlCompleteNode.size.width - 20
+        lvlCompleteNode.position.y = 100
+        mapNode.addChild(lvlCompleteNode)
     }
 
     required init?(coder aDecoder: NSCoder) {

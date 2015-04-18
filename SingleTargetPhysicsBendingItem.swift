@@ -13,6 +13,7 @@ class SingleTargetPhysicsBendingItem: PhysicsBendingItem {
     override init(desiredEffect:Effect) {
         super.init(desiredEffect: desiredEffect)
         durationOfEffect = 5
+        name = "Single target physics bending item"
     }
 
     required init?(coder aDecoder: NSCoder) {

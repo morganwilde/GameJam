@@ -10,6 +10,8 @@ import SpriteKit
 
 class Effect {
     
+    var name:String?
+    
     var durationOfEffect: Double = 0
     
     func applyEffect(target:SKNode){
