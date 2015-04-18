@@ -42,6 +42,9 @@ class HeroNode: SKSpriteNode {
     
     var items: [Item] = []
     var activatedItem: Item?
+    // Textures
+    var texturesWalkLeft = [SKTexture]()
+    var texturesWalkRight = [SKTexture]()
     
     init() {
         let texture = SKTexture(imageNamed: "Hero.png")
@@ -56,6 +59,12 @@ class HeroNode: SKSpriteNode {
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        
+        // Create the textures arrays
+        for i in 0...16 {
+            texturesWalkRight.append(SKTexture(imageNamed: String(format: "Walking animation%02d.png", i)))
+            texturesWalkLeft.append(SKTexture(imageNamed: String(format: "walking-left-%d.png", i)))
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,7 +80,7 @@ class HeroNode: SKSpriteNode {
         default:        movement = SKAction()
         }
         
-        runAction(movement)
+        runAction(SKAction.group([movement, animationWalkingInDirection(direction)]))
     }
     func addItem(item: Item) {
         items.append(item)
@@ -86,4 +95,15 @@ class HeroNode: SKSpriteNode {
         return items.contains(item)
     }
     
+    // Animations
+    func animationWalkingInDirection(direction: MovementDirection) -> SKAction {
+        var animation: SKAction
+        switch (direction) {
+        case .Right: animation = SKAction.animateWithTextures(texturesWalkRight, timePerFrame: 0.016)
+        case .Left: animation = SKAction.animateWithTextures(texturesWalkLeft, timePerFrame: 0.016)
+        default: animation = SKAction()
+        }
+        
+        return animation
+    }
 }
