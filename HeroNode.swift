@@ -58,6 +58,7 @@ class HeroNode: SKSpriteNode {
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody?.allowsRotation = false
         
         // Create the textures arrays
         for i in 0...16 {
@@ -74,8 +75,8 @@ class HeroNode: SKSpriteNode {
     func moveInDirection(direction: MovementDirection) {
         var movement: SKAction
         switch (direction) {
-        case .Right:    movement = SKAction.moveByX(100, y: 0, duration: 0.25)
-        case .Left:     movement = SKAction.moveByX(-100, y: 0, duration: 0.25)
+        case .Right:    movement = SKAction.moveByX(50, y: 0, duration: 0.25)
+        case .Left:     movement = SKAction.moveByX(-50, y: 0, duration: 0.25)
         default:        movement = SKAction()
         }
         
