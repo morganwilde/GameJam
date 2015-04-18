@@ -68,7 +68,7 @@ class HeroNode: SKSpriteNode, Contactable {
     func constrainMovement() {
         let mapNode = parent as! MapNode
         constraints = [SKConstraint.positionX(SKRange(lowerLimit: CGFloat(mapNode.startMap) + size.width / 2,
-            upperLimit: CGFloat(mapNode.endMap) - size.width))]
+            upperLimit: CGFloat(mapNode.endMap) - size.width / 2))]
     }
     
     required init?(coder aDecoder: NSCoder) {
