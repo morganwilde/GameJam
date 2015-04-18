@@ -76,7 +76,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonGoUp.position = CGPoint(x: size.width - 10 - buttonGoUp.size.width, y: 70)
         
         addChild(buttonGoLeft)
-        addChild(buttonGoRight)
+        addChild(buttonGogRight)
         addChild(buttonGoUp)
         
         // Add hero
