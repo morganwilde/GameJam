@@ -60,7 +60,8 @@ class HeroNode: SKSpriteNode, Contactable {
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.restitution = 0
         physicsBody?.allowsRotation = false;
-
+        
+        userInteractionEnabled = true
         // Create the textures arrays
         for i in 0...16 {
             texturesWalkRight.append(SKTexture(imageNamed: String(format: "Walking animation%02d.png", i)))
@@ -99,7 +100,8 @@ class HeroNode: SKSpriteNode, Contactable {
     
     func jump(){
         if footing > 0 {
-            self.runAction(SKAction.moveBy(CGVector(dx: 0, dy: scene!.frame.height * 2), duration: 1.5))
+//            self.runAction(SKAction.moveBy(CGVector(dx: 0, dy: scene!.frame.height * 2), duration: 1.5))
+            physicsBody?.applyImpulse(CGVector(dx: 0, dy: 450))
             println("wut")
         }
     }
@@ -186,5 +188,17 @@ class HeroNode: SKSpriteNode, Contactable {
             footing--
         }
         
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        
+    }
+    
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if let scene = scene as? GameScene {
+            if let item = scene.heroNode.activatedItem {
+                item.cast(self)
+            }
+        }
     }
 }

@@ -10,6 +10,11 @@ import SpriteKit
 
 class StopGravityEffect : Effect {
     
+    override init() {
+        super.init()
+        name = "Gravitational hault"
+    }
+    
     override func applyEffect(target: SKNode) {
         
         let oldVelocity = target.physicsBody?.velocity

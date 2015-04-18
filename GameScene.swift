@@ -79,7 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add hero
         heroNode = HeroNode()
-        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 50)
+        heroNode.position = CGPoint(x: (size.width - heroNode.frame.width) / 2, y: heroNode.size.height + 100)
         mapNode.addChild(heroNode)
         heroNode.constrainMovement()
         
@@ -98,6 +98,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
         itemNode.position = CGPoint(x: -200, y: mapNode.mesurmentsGround)
         mapNode.addChild(itemNode)
+
+        itemNode.displayItemName()
+        addChild(itemNode.displayText!)
         
         // Add level complete thingy
         let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
