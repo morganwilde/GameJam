@@ -55,7 +55,9 @@ class MapNode: SKSpriteNode {
         //x axis cloud check
         if(position.x + 400 + self.frame.width > CGFloat(cloudCreatedWidth) + CGFloat(cloudCreatedX)){
             //x axis: cloud x + width < camera x + frame
-
+            
+            println("FFFFFFFFFFF")
+            
             let fromX = cloudCreatedWidth + cloudCreatedX
             let fromY = 0
             
@@ -70,7 +72,7 @@ class MapNode: SKSpriteNode {
                 let xpos = Int(arc4random_uniform( UInt32(self.frame.width)))
                 let ypos = Int(arc4random_uniform( UInt32(self.frame.height)))
                 
-                createCloud(xpos + fromY, y: ypos + fromX, scale: sizeScale)
+                createCloud(xpos + fromX, y: ypos + fromY, scale: sizeScale)
 
             }
 
@@ -182,9 +184,9 @@ class MapNode: SKSpriteNode {
         
         let start: Double = Double(-self.frame.width)
         let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
-        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall, startingPosY: 0)
+        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
         let end: Double = generateGround(start, y: 0, count: 3)
-        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall, blockHeight: mesurmentsWall, startingPosX: end, startingPosY: 0)
+        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: end, startingPosY: 0)
         startMap = start
         endMap = end
     }
