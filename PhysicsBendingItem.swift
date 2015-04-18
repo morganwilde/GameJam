@@ -14,18 +14,57 @@ class PhysicsBendingItem : Item{
     
     var durationOfEffect:Double = 0
     var effect: Effect?
+    var displayText:SKNode?
 
     
     init(desiredEffect:Effect) {
         super.init()
         effect = desiredEffect
+        name = "Physics bending item"
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    override func getCollected() {
+        super.getCollected()
+        displayText?.runAction(SKAction.removeFromParent())
+    }
+    
     override func cast(target:SKNode){
+        
+    }
+    
+    func displayItemName(){
+        var text = SKLabelNode(fontNamed: "Arial")
+        text.text = "\(name!) of \(effect!.name!)"
+        text.fontColor = SKColor.whiteColor()
+        text.fontSize = 18
+        var background = SKSpriteNode(texture: nil, color: SKColor.blackColor(), size: text.frame.size)
+        
+        background.position = CGPoint(x: frame.maxX, y: frame.midY + frame.height)
+        text.position = CGPoint.zeroPoint
+        text.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        text.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
+        background.zPosition = text.zPosition+1
+        
+        background.addChild(text)
+        
+        displayText = background
+        
+        
+            
+        println("Added the text")
+        text.runAction(
+            SKAction.sequence([
+                SKAction.repeatActionForever(SKAction.sequence([
+                    //SKAction.runBlock({ background.position = self.frame }),
+                    SKAction.waitForDuration(0.01)])),
+                SKAction.runBlock(background.removeFromParent)
+                ])
+        )
+    
         
     }
 }
