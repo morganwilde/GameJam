@@ -164,10 +164,18 @@ class MapNode: SKSpriteNode {
                 }
 
             }
-            
+            //kuriamas virsuje
             createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift))
+            
+            
+            
+            //kuriamas apacioje
+            createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 1000)
+            
             end = end + Double(mesurmentsGround)
         }
+        createBlock(10, blocksCountY: 1, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 1000)
+        end = end + Double(mesurmentsGround) * 10
 //        createBlock(40, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: start, startingPosY: 0)
         
         startMap = start
