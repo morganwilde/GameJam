@@ -126,7 +126,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
-            y: mapNode.position.y)
+            y: -(node.position.y / 2) + CGFloat(mapNode.mesurmentsGround) + CGFloat(mapNode.mesurmentsGround) / 2 - 5)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
