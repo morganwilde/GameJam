@@ -55,8 +55,8 @@ class HeroNode: SKSpriteNode, Contactable {
         physicsBody = SKPhysicsBody(rectangleOfSize: size)
         physicsBody!.dynamic = true
         physicsBody!.categoryBitMask = Mask.HERO
-        physicsBody!.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
-        physicsBody!.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
+        physicsBody!.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND | Mask.SUCCESS
+        physicsBody!.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND | Mask.SUCCESS
 
         // Create the textures arrays
         for i in 0...16 {
