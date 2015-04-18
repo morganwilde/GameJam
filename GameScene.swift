@@ -126,9 +126,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func centerOnNode(node: SKNode) {
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
+//        let cameraPositionInScene:CGPoint = self.convertPoint(node.position, fromNode: mazeWorld!)
+//        mapNode.position = CGPoint(x: mapNode.position.x - cameraPositionInScene!.x, y: mapNode.position.y - cameraPositionInScene!.y)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
-            y: -(node.position.y / 2) + CGFloat(mapNode.mesurmentsGround) + CGFloat(mapNode.mesurmentsGround) / 2 - 5)
+            y: -(node.position.y / 2) + CGFloat(mapNode.mesurmentsGround) * 2)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
