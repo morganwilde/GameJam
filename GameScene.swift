@@ -40,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         mapNode = MapNode(size)
         addChild(mapNode)
+        mapNode.createLevel1()
         
         // Controls
         let buttonGoLeft = ControlNode(
