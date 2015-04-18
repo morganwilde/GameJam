@@ -12,5 +12,5 @@ import SpriteKit
 @objc protocol Affectable {
     
     var affected: Bool { get set }      //read-write
-
+    
 }

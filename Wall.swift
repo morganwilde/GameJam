@@ -26,7 +26,7 @@ class Wall : Obstacle, Contactable, Affectable {
         
         self.position = position
         let body = SKPhysicsBody(rectangleOfSize: size)
-        body.dynamic = false
+        body.dynamic = true
         body.categoryBitMask = Mask.OBSTACLE
         body.collisionBitMask = Mask.HERO | Mask.GROUND
         body.contactTestBitMask = Mask.HERO | Mask.GROUND
@@ -74,10 +74,10 @@ class Wall : Obstacle, Contactable, Affectable {
         case (Mask.GROUND, Mask.OBSTACLE): fallthrough
         case (Mask.OBSTACLE, Mask.GROUND):
             isRaised = false
-            println(contact.collisionImpulse)
-            if contact.collisionImpulse < 750 {
-                physicsBody?.dynamic = false
-            }
+//            println(contact.collisionImpulse)
+//            if contact.collisionImpulse < 750 {
+//                physicsBody?.dynamic = false
+//            }
             return
         default:
             return

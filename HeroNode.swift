@@ -52,7 +52,7 @@ class HeroNode: SKSpriteNode, Contactable {
         super.init(texture: texture, color: UIColor.clearColor(), size: CGSizeMake(texture.size().width * 4 / 5, texture.size().height * 4 / 5))
         
         name = "hero"
-        physicsBody = SKPhysicsBody(rectangleOfSize: size)
+        physicsBody = SKPhysicsBody(texture: texture, size: size)
         physicsBody!.dynamic = true
         physicsBody!.categoryBitMask = Mask.HERO
         physicsBody!.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
