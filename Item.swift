@@ -49,6 +49,10 @@ class Item : SKSpriteNode, Contactable{
         
     }
     
+    func cast(target:SKNode){
+        
+    }
+    
     func cast(){
 
     }

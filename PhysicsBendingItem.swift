@@ -25,7 +25,7 @@ class PhysicsBendingItem : Item{
         super.init(coder: aDecoder)
     }
     
-    func cast(object:SKNode){
+    override func cast(target:SKNode){
         
     }
 }

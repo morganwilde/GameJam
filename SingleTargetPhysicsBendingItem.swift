@@ -19,8 +19,8 @@ class SingleTargetPhysicsBendingItem: PhysicsBendingItem {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func cast(object:SKNode) {
-        effect?.applyEffect(object)
+    override func cast(target:SKNode) {
+        effect?.applyEffect(target)
     }
     
 }

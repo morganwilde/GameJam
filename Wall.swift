@@ -23,7 +23,7 @@ class Wall : Obstacle {
         
         super.init(texture: nil, color: color, size: size)
         //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
-
+        userInteractionEnabled = true
         body.dynamic = false
         body.categoryBitMask = Mask.OBSTACLE
         body.collisionBitMask = Mask.HERO | Mask.GROUND
@@ -53,6 +53,17 @@ class Wall : Obstacle {
         if isRaised {
             self.runAction(SKAction.moveBy(CGVectorMake(0, -170), duration: 1))
             isRaised = false
+        }
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+
+    }
+    
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if let scene = scene {
+            var parentScene = scene as! GameScene
+            parentScene.heroNode.activatedItem!.cast(self)
         }
     }
 }
