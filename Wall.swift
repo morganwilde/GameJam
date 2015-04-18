@@ -39,19 +39,19 @@ class Wall : Obstacle {
     func raise() {
         self.physicsBody?.affectedByGravity = false
         if !isRaised {
-            self.runAction(SKAction.moveBy(CGVectorMake(0, 170), duration: 1))
-            isRaised = true
+            if let scene = scene as? GameScene {
+                self.runAction(SKAction.moveBy(CGVectorMake(0, scene.heroNode.size.height), duration: 1))
+                isRaised = true
+            }
         }
     }
     
-    func cancelRising() {
+    func lower() {
         self.removeAllActions()
         self.physicsBody?.affectedByGravity = true
-    }
-    
-    func lower() {
+        
         if isRaised {
-            self.runAction(SKAction.moveBy(CGVectorMake(0, -170), duration: 1))
+            self.runAction(SKAction.moveToY(size.height / 2, duration: 1))
             isRaised = false
         }
     }

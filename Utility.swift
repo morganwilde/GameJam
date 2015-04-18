@@ -24,7 +24,12 @@ class Utility : SKSpriteNode, Contactable {
             ++contactCount
             if (interactionNode == nil) {
                 // Create interaction button if it doesn't exist
-                interactionNode = InteractionNode(title: "Do you even lift?")
+                interactionNode = InteractionNode(title: "Do you even lift?", onActionBegan: { () -> () in
+                    if let scene = self.scene as? GameScene {
+                        scene.wallNode.raise()
+                    }
+                }, onActionEnded: nil)
+
                 interactionNode!.position = CGPointMake((scene!.size.width - interactionNode!.size.width) / 2, (scene!.size.height - interactionNode!.size.height) / 2)
                 scene!.addChild(interactionNode!)
             } else {
@@ -44,15 +49,15 @@ class Utility : SKSpriteNode, Contactable {
             --contactCount
             if contactCount == 0 {
                 // Remove interaction node after a prefixed amount of time
-                runAction(SKAction.sequence([
-                    SKAction.waitForDuration(REMOVE_DELAY),
-                    SKAction.runBlock({ () -> Void in
-                        if let interactionNode = self.interactionNode {
-                            self.interactionNode!.removeFromParent()
-                            self.interactionNode = nil
-                        }
-                    })
-                ]), withKey: AUTO_REMOVAL_ACTION_KEY)
+                runAction(SKAction.runBlock({ () -> Void in
+                    if let scene = self.scene as? GameScene {
+                        scene.wallNode.lower()
+                    }
+                    if let interactionNode = self.interactionNode {
+                        self.interactionNode!.removeFromParent()
+                        self.interactionNode = nil
+                    }
+                }))
             }
             return
         default:

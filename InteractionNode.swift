@@ -18,21 +18,22 @@ class InteractionNode : SKSpriteNode {
         static let DEFAULT_BUTTON_HEIGHT   = 50 as CGFloat // ToDo sizes based on screen size
     }
     
-    init(title : String) {
-        super.init(texture: nil, color: UIColor.grayColor().colorWithAlphaComponent(0.5), size: CGSizeMake(Const.DEFAULT_BG_WIDTH, Const.DEFAULT_BG_HEIGHT))
-      
-        anchorPoint = CGPointMake(0, 0)
-        
-        // Button node
-        let buttonNode = ControlNode(size: CGSizeMake(Const.DEFAULT_BUTTON_WIDTH, Const.DEFAULT_BUTTON_HEIGHT),
+    let button: ControlNode
+    
+    
+    init(title: String, onActionBegan: (() -> ())?, onActionEnded: (() -> ())?) {
+        button = ControlNode(size: CGSizeMake(Const.DEFAULT_BUTTON_WIDTH, Const.DEFAULT_BUTTON_HEIGHT),
             color: UIColor.redColor(),
             title: title,
-            onActionBegan: nil,
-            onActionEnded: nil)
-        buttonNode.position = CGPointMake((size.width - buttonNode.size.width) / 2,
-            (size.height - buttonNode.size.height) / 2)
+            onActionBegan: onActionBegan,
+            onActionEnded: onActionEnded)
+        
+        super.init(texture: nil, color: UIColor.grayColor().colorWithAlphaComponent(0.5), size: CGSizeMake(Const.DEFAULT_BG_WIDTH, Const.DEFAULT_BG_HEIGHT))
+        anchorPoint = CGPointMake(0, 0)
+        
+        button.position = CGPointMake((size.width - button.size.width) / 2, (size.height - button.size.height) / 2)
 
-        addChild(buttonNode)
+        addChild(button)
     }
 
     required init?(coder aDecoder: NSCoder) {
