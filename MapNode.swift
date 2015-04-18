@@ -150,13 +150,18 @@ class MapNode: SKSpriteNode {
         createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
         var shift: Int = 9
         for(var i=0;i<50;i++){
-            var random = Int(arc4random_uniform(2))
+            if(i%2 == 0){
+                var random = Int(arc4random_uniform(3))
+                
+                if(random == 1){
             
-            if(random == 1){
-        
-                shift++;
-            }else{
-                shift--;
+                    shift++;
+                }else if(random == 2){
+                    shift--;
+                }else{
+
+                }
+
             }
             
             createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift))
