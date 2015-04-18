@@ -31,7 +31,7 @@ class MapNode: SKSpriteNode {
         self.name = NodeName.MAP
         createLevel1()
         createBackground1()
-        createClouds()
+        //createClouds()
         createLevel2()
     }
 
@@ -51,15 +51,53 @@ class MapNode: SKSpriteNode {
     
     func updateScreenPos(position: CGPoint) {
         
-        arc4random()
         
         //x axis cloud check
-        if(position.x + self.frame.width > CGFloat(cloudCreatedWidth) + CGFloat(cloudCreatedX)){
+        if(position.x + 400 + self.frame.width > CGFloat(cloudCreatedWidth) + CGFloat(cloudCreatedX)){
             //x axis: cloud x + width < camera x + frame
+
+            let fromX = cloudCreatedWidth + cloudCreatedX
+            let fromY = 0
             
-        }else if(position.x < CGFloat(cloudCreatedX)){
+            cloudCreatedWidth += Int(self.frame.width)
+            println(self.frame.width)
+            let n = 10
+
+            for(var i=0; i<n; i++){ // n debeseliu
+                
+                let sizeScale = Int(arc4random_uniform(5)) //debeselio dydis
+
+                let xpos = Int(arc4random_uniform( UInt32(self.frame.width)))
+                let ypos = Int(arc4random_uniform( UInt32(self.frame.height)))
+                
+                createCloud(xpos + fromY, y: ypos + fromX, scale: sizeScale)
+
+            }
+
+        }else if(position.x - 400 < CGFloat(cloudCreatedX)){
             //x axis: cloud x > camera x
-        
+
+            println("GGGGGGGGGGG")
+
+            cloudCreatedX -= Int(self.frame.width)
+            cloudCreatedWidth += Int(self.frame.width)
+            
+            let fromX = cloudCreatedX
+            let fromY = 0
+    
+            let n = 10
+
+            for(var i=0; i<n; i++){ // n debeseliu
+                
+                let sizeScale = Int(arc4random_uniform(5)) //debeselio dydis
+
+                let xpos = Int(arc4random_uniform( UInt32(self.frame.width)))
+                let ypos = Int(arc4random_uniform( UInt32(self.frame.height)))
+                
+                createCloud(xpos + fromX, y: ypos + fromY, scale: sizeScale)
+
+            }
+            
         }
         
         //y axis cloud check (expl. like x)
@@ -75,16 +113,34 @@ class MapNode: SKSpriteNode {
     
     func createClouds(){
         
-       
+        let fromX = cloudCreatedX
+        let fromY = cloudCreatedY
+        
+        cloudCreatedWidth += Int(self.frame.width)
+        cloudCreatedHeight += Int(self.frame.height)
+        
+        let n = 10
+        
+        for(var i=0; i<n; i++){ // n debeseliu
+                
+            let sizeScale = Int(arc4random_uniform(5)) //debeselio dydis
+
+            let xpos = Int(arc4random_uniform( UInt32(self.frame.width)))
+            let ypos = Int(arc4random_uniform( UInt32(self.frame.height)))
+                
+            createCloud(xpos + fromY, y: ypos + fromX, scale: sizeScale)
+
+        }
         
     }
     
-    func createCloud(x: Int, y: Int){
+    func createCloud(x: Int, y: Int, scale: Int){
         var node = SKSpriteNode(imageNamed: "cloud.png")
-        node.size = CGSize(width: 50, height: 50)
+        node.xScale = CGFloat(scale) * 0.1 + 0.3
+        node.yScale = CGFloat(scale) * 0.1 + 0.3
+        //node.size = CGSize(width: 50, height: 50)
         node.position = CGPoint(x: x,y: y)
         node.zPosition = -1
-        
         addChild(node)
     }
     
