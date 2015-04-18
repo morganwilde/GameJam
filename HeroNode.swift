@@ -173,11 +173,11 @@ class HeroNode: SKSpriteNode, Contactable {
     
     func addPickedUpItem(pickedUpItem:Item){
         if let scene = scene {
-            var slot = InventorySlot(hero: self, size: CGSize(width: 50, height: 50), color: SKColor.whiteColor(), title: "", onActionBegan: nil, onActionEnded: nil)
+            var slot = InventorySlot(hero: self, size: CGSize(width: 40, height: 25), color: SKColor.whiteColor(), title: "", onActionBegan: nil, onActionEnded: nil)
             scene.addChild(slot)
             slot.setItem(pickedUpItem)
             inventorySlots.append(slot)
-            slot.position = CGPoint(x: CGFloat((inventorySlots.count-1) * 60 + 20), y: scene.frame.height - 70)
+            slot.position = CGPoint(x: CGFloat((inventorySlots.count-1) * 60 + 20), y: scene.frame.height - 50)
         }
     }
     

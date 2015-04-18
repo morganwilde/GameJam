@@ -97,6 +97,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add item
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
         itemNode.position = CGPoint(x: -200, y: mapNode.mesurmentsGround)
+        itemNode.size.width = 40
+        itemNode.size.height = 25
         mapNode.addChild(itemNode)
 
         itemNode.displayItemName()
