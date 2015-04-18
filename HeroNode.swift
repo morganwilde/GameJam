@@ -51,11 +51,9 @@ class HeroNode: SKSpriteNode {
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-        anchorPoint = CGPoint(x: 0, y: 0)
+//        anchorPoint = CGPoint(x: 0, y: 0)
         
-        physicsBody = SKPhysicsBody(
-            rectangleOfSize: frame.size,
-            center: CGPoint(x: frame.width/2, y: frame.height/2))
+        physicsBody = SKPhysicsBody(texture: texture, size: size)
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
         physicsBody?.contactTestBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND

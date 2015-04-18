@@ -11,25 +11,18 @@ import SpriteKit
 
 class ControlNode: SKSpriteNode {
     
-    var actionOnBegan: () -> ()?
-    var actionOnEnded: () -> ()?
+    let actionOnBegan: (()->())?
+    let actionOnEnded: (()->())?
     
-    init(size: CGSize, color: UIColor, title: String) {
-        
-        actionOnBegan = {
-            return
-        }
-        actionOnEnded = {
-            return
-        }
-        
+    init(size: CGSize, color: UIColor, title: String, onActionBegan: (()->())?, onActionEnded: (()->())?) {
+        actionOnBegan = onActionBegan
+        actionOnEnded = onActionEnded
         super.init(texture: nil, color: color, size: size)
         
         userInteractionEnabled = true
-        
         anchorPoint = CGPoint(x: 0, y: 0)
         
-        let labelNode = SKLabelNode(text: title)
+        let labelNode = ClickableLabel(text: title, began: onActionBegan, ended: onActionEnded)
         labelNode.fontColor = UIColor.blackColor()
         labelNode.fontSize = 16
         labelNode.position = CGPoint(x: size.width/2, y: size.height/2)
@@ -44,11 +37,15 @@ class ControlNode: SKSpriteNode {
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
-        actionOnBegan()
+        if let actionOnBegan = actionOnBegan {
+            actionOnBegan()
+        }
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
-        actionOnEnded()
+        if let actionOnEnded = actionOnEnded {
+            actionOnEnded()
+        }
     }
 }
