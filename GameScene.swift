@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         anchorPoint = CGPoint(x: 0, y: 0)
         physicsWorld.contactDelegate = self
         
-        mapNode = MapNode(size)
+        mapNode = MapNode(size , name: "background1.png", cloud: "cloud.png")
         addChild(mapNode)
         mapNode.createLevel1()
         
@@ -118,7 +118,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didFinishUpdate() {
+//    override func didFinishUpdate() {
+//        centerOnNode(heroNode)
+//    }
+    
+    override func didSimulatePhysics() {
         centerOnNode(heroNode)
     }
     
@@ -132,7 +136,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        mapNode.position = CGPoint(x: mapNode.position.x - cameraPositionInScene!.x, y: mapNode.position.y - cameraPositionInScene!.y)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
-            y: -(node.position.y / 2) + CGFloat(mapNode.mesurmentsGround) * 2)
+            y: mapNode.position.y + frame.height/2 - cameraPositionInScene!.y - node.frame.height/2)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {

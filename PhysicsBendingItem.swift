@@ -43,7 +43,7 @@ class PhysicsBendingItem : Item{
         text.fontSize = 12
         var background = SKSpriteNode(texture: nil, color: SKColor.blackColor(), size: text.frame.size)
         
-        background.position = CGPoint(x: frame.maxX, y: frame.midY + frame.height)
+        background.position = CGPoint(x: frame.maxX, y: frame.midY + frame.height * 2)
         text.position = CGPoint.zeroPoint
         text.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         text.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center

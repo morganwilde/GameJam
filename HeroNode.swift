@@ -38,12 +38,13 @@ enum MovementDirection {
     case Left
 }
 
-class HeroNode: SKSpriteNode, Contactable {
+class HeroNode: SKSpriteNode, Contactable, Affectable {
     
     var items: [Item] = []
     var inventorySlots: [InventorySlot] = []
     var activatedItem: Item?
     var footing:NSInteger = 0
+    var affected:Bool = false
     // Textures
     var texturesWalkLeft = [SKTexture]()
     var texturesWalkRight = [SKTexture]()
@@ -193,7 +194,7 @@ class HeroNode: SKSpriteNode, Contactable {
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        if let scene = scene as? GameScene {
+        if let scene = scene as? GameScene2 {
             if let item = scene.heroNode.activatedItem {
                 item.cast(self)
             }
