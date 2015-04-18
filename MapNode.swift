@@ -150,6 +150,7 @@ class MapNode: SKSpriteNode {
         createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
         var shift: Int = 9
         for(var i=0;i<50;i++){
+
             if(i%2 == 0){
                 var random = Int(arc4random_uniform(3))
                 
@@ -163,10 +164,18 @@ class MapNode: SKSpriteNode {
                 }
 
             }
-            
+            //kuriamas virsuje
             createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift))
+            
+            
+            
+            //kuriamas apacioje
+            createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 1000)
+            
             end = end + Double(mesurmentsGround)
         }
+        createBlock(10, blocksCountY: 1, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 1000)
+        end = end + Double(mesurmentsGround) * 10
 //        createBlock(40, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: start, startingPosY: 0)
         
         startMap = start
