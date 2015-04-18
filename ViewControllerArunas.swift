@@ -29,7 +29,7 @@ class ViewControllerArunas: UIViewController {
         
         spriteView.presentScene(sceneCurrent)
         
-        let testItem = SingleTargetPhysicsBendingItem(parent: sceneCurrent)
+        let testItem = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
         testItem.position = CGPoint(x: 200, y: 250)
         sceneCurrent.addChild(testItem)
     }
