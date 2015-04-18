@@ -73,8 +73,8 @@ class HeroNode: SKSpriteNode {
     func moveInDirection(direction: MovementDirection) {
         var movement: SKAction
         switch (direction) {
-        case .Right:    movement = SKAction.moveByX(100, y: 0, duration: 0.25)
-        case .Left:     movement = SKAction.moveByX(-100, y: 0, duration: 0.25)
+        case .Right:    movement = SKAction.moveByX(50, y: 0, duration: 0.25)
+        case .Left:     movement = SKAction.moveByX(-50, y: 0, duration: 0.25)
         default:        movement = SKAction()
         }
         

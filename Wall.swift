@@ -24,9 +24,7 @@ class Wall : Obstacle {
         super.init(texture: nil, color: color, size: size)
         //super.init(texture: nil, color: SKColor.whiteColor(), size: CGSizeMake(defaultWidth, height: defaultHeight))
 
-        body.affectedByGravity = false
         body.dynamic = false
-        body.restitution = 0
         body.categoryBitMask = Mask.OBSTACLE
         body.collisionBitMask = Mask.HERO | Mask.GROUND
         body.contactTestBitMask = Mask.HERO | Mask.GROUND
