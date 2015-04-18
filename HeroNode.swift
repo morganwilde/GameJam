@@ -41,6 +41,7 @@ enum MovementDirection {
 class HeroNode: SKSpriteNode, Contactable {
     
     var items: [Item] = []
+    var inventorySlots: [InventorySlot] = []
     var activatedItem: Item?
     // Textures
     var texturesWalkLeft = [SKTexture]()
@@ -53,7 +54,8 @@ class HeroNode: SKSpriteNode, Contactable {
         
         name = "hero"
         
-        physicsBody = SKPhysicsBody(texture: texture, size: size)
+//        physicsBody = SKPhysicsBody(texture: texture, size: size)
+        physicsBody = SKPhysicsBody(rectangleOfSize: size)
         physicsBody?.mass = 20000
         physicsBody?.categoryBitMask = Mask.HERO
         physicsBody?.collisionBitMask = Mask.OBSTACLE | Mask.ITEM | Mask.SCENE | Mask.GROUND
@@ -114,6 +116,8 @@ class HeroNode: SKSpriteNode, Contactable {
                 pickedUpItem.pickedUp = true
                 pickedUpItem.getCollected()
                 items.append(pickedUpItem)
+                addPickedUpItem(pickedUpItem)
+
             }
         }
         else if contact.bodyB.categoryBitMask == Mask.ITEM && contact.bodyA.node == self {
@@ -122,11 +126,30 @@ class HeroNode: SKSpriteNode, Contactable {
                 pickedUpItem.pickedUp = true
                 pickedUpItem.getCollected()
                 items.append(pickedUpItem)
+                addPickedUpItem(pickedUpItem)
             }
         }
     }
     
+    func getSelectedSlot() -> InventorySlot?{
+        for slot in inventorySlots {
+            if activatedItem == slot.slottedItem {
+                return slot
+            }
+        }
+        return nil
+    }
     
+    
+    func addPickedUpItem(pickedUpItem:Item){
+        if let scene = scene {
+            var slot = InventorySlot(hero: self, size: CGSize(width: 50, height: 50), color: SKColor.whiteColor(), title: "", onActionBegan: nil, onActionEnded: nil)
+            scene.addChild(slot)
+            slot.setItem(pickedUpItem)
+            inventorySlots.append(slot)
+            slot.position = CGPoint(x: CGFloat((inventorySlots.count-1) * 60 + 20), y: scene.frame.height - 70)
+        }
+    }
     
     func didEndContact(contact: SKPhysicsContact) {
         
