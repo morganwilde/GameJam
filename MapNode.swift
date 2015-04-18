@@ -153,7 +153,7 @@ class MapNode: SKSpriteNode {
         node.physicsBody?.pinned = true
         node.physicsBody?.categoryBitMask = 0
         node.physicsBody?.collisionBitMask = 0
-        //addChild(node)
+        addChild(node)
         
     }
     
