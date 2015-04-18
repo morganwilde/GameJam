@@ -158,12 +158,28 @@ class MapNode: SKSpriteNode {
     
     func createLevel2() {
         
-//        var ground = createGround(300, y: 300, width: 50, height: 50)//(1, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: 300, startingPosY: 300)
-//        var sprite = randomObj()
-//        addChild(ground)
-//        addChild(sprite)
+        let start: Double = Double(0)
+        var end: Double = generateGround(start, y: 0, count: 1)
+        let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
+        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
+        var shift: Int = 9
+        for(var i=0;i<50;i++){
+            var random = Int(arc4random_uniform(1))
+            
+            if(random == 1){
         
+                shift++;
+            }else{
+                shift--;
+            }
+            
+            createBlock(1, blocksCountY: 10, blockWidth: 50, blockHeight: 50, startingPosX: end, startingPosY: -50*Double(shift))
+            end = end + Double(50)
+        }
+//        createBlock(40, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: start, startingPosY: 0)
         
+        startMap = start
+        endMap = end
         
     }
     
