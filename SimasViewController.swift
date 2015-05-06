@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class ViewController: UIViewController {
+class SimasViewController: UIViewController {
 
     @IBOutlet weak var spriteView: SKView!
     
@@ -19,4 +19,3 @@ class ViewController: UIViewController {
     }
 
 }
-

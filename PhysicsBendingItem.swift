@@ -10,8 +10,6 @@ import SpriteKit
 
 class PhysicsBendingItem : Item{
     
-
-    
     var durationOfEffect:Double = 0
     var effect: Effect?
     var displayText:SKNode?
@@ -43,7 +41,7 @@ class PhysicsBendingItem : Item{
         text.fontSize = 12
         var background = SKSpriteNode(texture: nil, color: SKColor.blackColor(), size: text.frame.size)
         
-        background.position = CGPoint(x: frame.maxX, y: frame.midY + frame.height * 2)
+        background.position = CGPoint(x: 0, y: background.frame.height + text.frame.height)
         text.position = CGPoint.zeroPoint
         text.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         text.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
@@ -53,17 +51,14 @@ class PhysicsBendingItem : Item{
         
         displayText = background
         
-        
-            
         println("Added the text")
-        text.runAction(
-            SKAction.sequence([
-                SKAction.repeatActionForever(SKAction.sequence([
-                    //SKAction.runBlock({ background.position = self.frame }),
-                    SKAction.waitForDuration(0.01)])),
-                SKAction.runBlock(background.removeFromParent)
-                ])
-        )
+//        text.runAction(
+//            SKAction.sequence([
+//                SKAction.repeatActionForever(SKAction.sequence([
+//                    SKAction.waitForDuration(0.01)])),
+//                    SKAction.runBlock(background.removeFromParent)
+//            ])
+//        )
     
         
     }

@@ -16,8 +16,8 @@ class MapNode: SKSpriteNode {
     var endMap: Double = 0
     
     var cloudName: String!
-    let mesurmentsGround: Double = 35
-    let mesurmentsWall: Double = 260
+    let measurmentsGround: Double = 35
+    let measurmentsWall: Double = 260
     var screenPos: CGPoint = CGPoint(x: 0, y: 0)
     
     var cloudCreatedX = 0
@@ -150,11 +150,11 @@ class MapNode: SKSpriteNode {
         var end: Double = generateGround(start, y: 0, count: 1)
         var bottom: Double = 0
         
-        createBlock(1, blocksCountY: 50, blockWidth: end, blockHeight: mesurmentsGround, startingPosX: 0, startingPosY: -mesurmentsGround*50)
+        createBlock(1, blocksCountY: 50, blockWidth: end, blockHeight: measurmentsGround, startingPosX: 0, startingPosY: -measurmentsGround*50)
         
 
-        let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
-        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*5, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*5, startingPosY: 0)
+        let countY: Int = Int(self.frame.height) / Int(measurmentsWall) + 1
+        createBlock(1, blocksCountY: countY, blockWidth: measurmentsWall*5, blockHeight: measurmentsWall, startingPosX: start - measurmentsWall*5, startingPosY: 0)
         
 
         var shift: Int = 9
@@ -176,26 +176,26 @@ class MapNode: SKSpriteNode {
             
             if(i != 15 && i != 14 && i != 30 && i != 29 && i != 45 && i != 44){
                 //kuriamas virsuje
-                createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift))
+                createBlock(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift))
                 
                 //kuriamas apacioje
-                createBlock(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 600)
+                createBlock(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift) - 600)
 
-                lowestY(-mesurmentsGround*Double(shift) - 600)
+                lowestY(-measurmentsGround*Double(shift) - 600)
             }else{
                 //kuriamas virsuje
-                createBlockObstacle(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift))
+                createBlockObstacle(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift))
                 
                 //kuriamas apacioje
-                createBlockObstacle(1, blocksCountY: 10, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 600)
+                createBlockObstacle(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift) - 600)
             }
             
-            end = end + Double(mesurmentsGround)
+            end = end + Double(measurmentsGround)
         }
-        createBlock(10, blocksCountY: 1, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: end, startingPosY: -mesurmentsGround*Double(shift) - 600)
+        createBlock(10, blocksCountY: 1, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift) - 600)
     
-        lowestY(-mesurmentsGround*Double(shift) - 600)
-        end = end + Double(mesurmentsGround) * 10
+        lowestY(-measurmentsGround*Double(shift) - 600)
+        end = end + Double(measurmentsGround) * 10
 //        createBlock(40, blocksCountY: 1, blockWidth: 50, blockHeight: 50, startingPosX: start, startingPosY: 0)
         startMap = start
         endMap = end
@@ -211,10 +211,10 @@ class MapNode: SKSpriteNode {
     
     func createLevel1(){
         let start: Double = Double(-self.frame.width)
-        let countY: Int = Int(self.frame.height) / Int(mesurmentsWall) + 1
-        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: start - mesurmentsWall*3, startingPosY: 0)
+        let countY: Int = Int(self.frame.height) / Int(measurmentsWall) + 1
+        createBlock(1, blocksCountY: countY, blockWidth: measurmentsWall*3, blockHeight: measurmentsWall, startingPosX: start - measurmentsWall*3, startingPosY: 0)
         let end: Double = generateGround(start, y: 0, count: 3)
-        createBlock(1, blocksCountY: countY, blockWidth: mesurmentsWall*3, blockHeight: mesurmentsWall, startingPosX: end, startingPosY: 0)
+        createBlock(1, blocksCountY: countY, blockWidth: measurmentsWall*3, blockHeight: measurmentsWall, startingPosX: end, startingPosY: 0)
         startMap = start
         endMap = end
     }
@@ -224,12 +224,12 @@ class MapNode: SKSpriteNode {
     
     func generateGround(x: Double, y: Double, count: Int) -> Double{ //count = screenwidth
         var pos = x
-        let quantity = Int(self.frame.width) / Int(mesurmentsGround)
+        let quantity = Int(self.frame.width) / Int(measurmentsGround)
         println(quantity)
         for(var i=0; i<count; i++){
             
-            createBlock(quantity, blocksCountY: 1, blockWidth: mesurmentsGround, blockHeight: mesurmentsGround, startingPosX: pos, startingPosY: 0)
-            pos += Double(quantity) * Double(mesurmentsGround)
+            createBlock(quantity, blocksCountY: 1, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: pos, startingPosY: 0)
+            pos += Double(quantity) * Double(measurmentsGround)
             
         }
         return Double(pos)

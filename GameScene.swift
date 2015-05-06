@@ -59,7 +59,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             title: "↣",
             onActionBegan: {
                 self.heroNode.moveInDirection(.Right)
-                println("fucked")
             },
             onActionEnded: {
                 self.heroNode.stop()
@@ -73,7 +72,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             title: "↥",
             onActionBegan: {
                 self.heroNode.jump()
-                println("clicked left")
             },
             onActionEnded: nil)
         
@@ -82,7 +80,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             title: "↥",
             onActionBegan: {
                 self.heroNode.jump()
-                println("clicked right")
             },
             onActionEnded: nil)
         
@@ -135,24 +132,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add button
         let buttonNode = Button()
-        buttonNode.position = CGPoint(x: 80, y: mapNode.mesurmentsGround)
+        buttonNode.position = CGPoint(x: 80, y: mapNode.measurmentsGround)
         mapNode.addChild(buttonNode)
         
         // Add wall
         let wallWidth = 30 as CGFloat
-        wallNode = Wall(color: UIColor.blueColor(), size: CGSize(width: wallWidth, height: size.height),
-            position: CGPoint(x: 450, y: size.height / 2 + CGFloat(mapNode.mesurmentsGround)))
+        // Make the wall appear at the right side of the screen when standing on the button
+        let wallX = buttonNode.position.x + buttonNode.frame.width + size.width / 2 - wallWidth / 2
+        let wallY = size.height / 2 + CGFloat(mapNode.measurmentsGround)
+        wallNode = Wall(color: UIColor.blueColor(),
+            size: CGSize(width: wallWidth, height: size.height),
+            position: CGPoint(x: wallX, y: wallY))
         mapNode.addChild(wallNode)
 
         // Add item
         let itemNode = SingleTargetPhysicsBendingItem(desiredEffect: StopGravityEffect())
-        itemNode.position = CGPoint(x: -200, y: mapNode.mesurmentsGround)
+        itemNode.position = CGPoint(x: -200, y: mapNode.measurmentsGround)
         itemNode.size.width = 40
         itemNode.size.height = 25
         mapNode.addChild(itemNode)
 
         itemNode.displayItemName()
-        mapNode.addChild(itemNode.displayText!)
+        itemNode.addChild(itemNode.displayText!)
         
         // Add level complete thingy
         let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
@@ -165,11 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override func didFinishUpdate() {
-//        centerOnNode(heroNode)
-//    }
-    
+
     override func didSimulatePhysics() {
         centerOnNode(heroNode)
     }
@@ -180,8 +177,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func centerOnNode(node: SKNode) {
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
-//        let cameraPositionInScene:CGPoint = self.convertPoint(node.position, fromNode: mazeWorld!)
-//        mapNode.position = CGPoint(x: mapNode.position.x - cameraPositionInScene!.x, y: mapNode.position.y - cameraPositionInScene!.y)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
             y: mapNode.position.y + frame.height/2 - cameraPositionInScene!.y - node.frame.height/2)

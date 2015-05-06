@@ -69,17 +69,17 @@ class HeroNode: SKSpriteNode, Contactable, Affectable {
             texturesWalkLeft.append(SKTexture(imageNamed: String(format: "walking-left-%d.png", i)))
         }
         
-        runAction(SKAction.sequence([
+        runAction(SKAction.repeatActionForever(SKAction.sequence([
             SKAction.runBlock({
                 if let scene = self.scene as? GameScene2 {
                     let leWildInteger: CGFloat = CGFloat(scene.mapNode.lowest)
-                    if self.frame.midY < leWildInteger {
+                    if self.position.y < leWildInteger {
                         self.scene?.view?.presentScene(GameOverScene(size: self.scene!.size, level: 2))
                     }
                 }
             }),
-            SKAction.waitForDuration(1)
-            ]))
+            SKAction.waitForDuration(1)]
+        )))
     }
     
     func constrainMovement() {
@@ -111,9 +111,14 @@ class HeroNode: SKSpriteNode, Contactable, Affectable {
         runAction(SKAction.group([SKAction.repeatActionForever(movement), animationWalkingInDirection(direction)]), withKey: "heroRun")
     }
     
-    func jump(){
-        if footing > 0 {
-            physicsBody?.applyImpulse(CGVector(dx: 0, dy: 100))
+    let jumpKey = "jumpAction"
+    
+    func jump() {
+        if let physicsBody = physicsBody {
+            // Jump only if current y axis velocity is 0
+            if (physicsBody.velocity.dy == 0) {
+                physicsBody.applyImpulse(CGVector(dx: 0, dy: 100))
+            }
         }
     }
     

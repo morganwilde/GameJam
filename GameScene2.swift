@@ -37,7 +37,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         physicsItem.position = CGPoint(x: 300, y: 600)
         mapNode.addChild(physicsItem)
         physicsItem.displayItemName()
-        mapNode.addChild(physicsItem.displayText!)
+        physicsItem.addChild(physicsItem.displayText!)
         
         // Controls
         let buttonGoLeft = ControlNode(
@@ -57,7 +57,6 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
             title: "↣",
             onActionBegan: {
                 self.heroNode.moveInDirection(.Right)
-                println("fucked")
             },
             onActionEnded: {
                 self.heroNode.stop()
@@ -113,7 +112,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
             self.heroNode.stop()
             println("ended")
         }
-    
+        
         // Tree
         addChild(buttonGoUpLeft)
         addChild(buttonGoUpRight)
@@ -135,7 +134,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         let cameraPositionInScene = node.scene?.convertPoint(node.position, fromNode: mapNode)
         mapNode.position = CGPoint(
             x: mapNode.position.x + frame.width/2 - cameraPositionInScene!.x - node.frame.width/2,
-            y: mapNode.position.y + frame.height/2 - cameraPositionInScene!.y - node.frame.height/2 + (CGFloat(mapNode.mesurmentsGround) * nodesVisibleBelow / 2))
+            y: mapNode.position.y + frame.height/2 - cameraPositionInScene!.y - node.frame.height/2 + (CGFloat(mapNode.measurmentsGround) * nodesVisibleBelow / 2))
     }
 
     required init?(coder aDecoder: NSCoder) {

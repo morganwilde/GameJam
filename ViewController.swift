@@ -19,15 +19,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        spriteView.showsPhysics = true
         
         sceneCurrent = GameScene(size: spriteView.frame.size)
-        
+        scene2 = GameScene2(size: spriteView.frame.size)
         spriteView.presentScene(sceneCurrent)
-        
-//        scene2 = GameScene2(size: spriteView.frame.size)
 //        spriteView.presentScene(scene2)
-        
-//        spriteView.showsPhysics = true
     }
     
 }
