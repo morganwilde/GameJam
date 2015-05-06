@@ -69,18 +69,17 @@ class HeroNode: SKSpriteNode, Contactable, Affectable {
             texturesWalkLeft.append(SKTexture(imageNamed: String(format: "walking-left-%d.png", i)))
         }
         
-        if let scene = scene as? GameScene2 {
-            let leWildInteger = scene.mapNode.lowest
-        }
-        
-        runAction(SKAction.repeatActionForever(SKAction.sequence([
+        runAction(SKAction.sequence([
             SKAction.runBlock({
-                
-                if self.frame.midy < leWildInteger {
-                    self.scene?.view?.presentScene(GameOverScene(self.scene))
+                if let scene = self.scene as? GameScene2 {
+                    let leWildInteger: CGFloat = CGFloat(scene.mapNode.lowest)
+                    if self.frame.midY < leWildInteger {
+                        self.scene?.view?.presentScene(GameOverScene(size: self.scene!.size, level: 2))
+                    }
                 }
-            })
-            ])))
+            }),
+            SKAction.waitForDuration(1)
+            ]))
     }
     
     func constrainMovement() {
