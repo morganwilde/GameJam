@@ -29,7 +29,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         self.addChild(mapNode)
         
         heroNode = HeroNode()
-        heroNode.position = CGPoint(x: 100, y: 500)
+        heroNode.position = CGPoint(x: 100, y: 600)
         mapNode.addChild(heroNode)
         heroNode.constrainMovement()
         
@@ -123,6 +123,16 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         buttonGoUpRight.name = "buttonGoUpRight"
         buttonGoLeft.name = "buttonGoLeft"
         buttonGoRight.name = "buttonGoRight"
+        
+        // Add level complete thingy
+        let lvlCompleteHeight = 50 as CGFloat
+        let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
+        let lvlCompleteNode = LevelCompleteNode(texture: lvlCompleteTexture, size: CGSize(width: 43, height: lvlCompleteHeight), level: 2)
+        lvlCompleteNode.position.x = CGFloat(mapNode.finishingX)
+        lvlCompleteNode.position.y = CGFloat(mapNode.finishingY) + lvlCompleteHeight
+        mapNode.addChild(lvlCompleteNode)
+        // Quick test level finish
+//        heroNode.position = CGPoint(x: CGFloat(mapNode.finishingX + 100), y: CGFloat(mapNode.finishingY + 100))
     }
     
     override func didFinishUpdate() {

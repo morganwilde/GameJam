@@ -144,9 +144,11 @@ class MapNode: SKSpriteNode {
         
     }
     
+    var finishingY: Double = 0
+    var finishingX: Double = 0
+    
     func createLevel2() {
-        
-        let start: Double = Double(0)
+        let start: Double = 0
         var end: Double = generateGround(start, y: 0, count: 1)
         var bottom: Double = 0
         
@@ -159,19 +161,13 @@ class MapNode: SKSpriteNode {
 
         var shift: Int = 9
         for(var i=0;i<50;i++){
-
             if(i%2 == 0){
                 var random = Int(arc4random_uniform(3))
-                
                 if(random == 1){
-            
                     shift++;
                 }else if(random == 2){
                     shift--;
-                }else{
-
                 }
-
             }
             
             if(i != 15 && i != 14 && i != 30 && i != 29 && i != 45 && i != 44){
@@ -182,12 +178,17 @@ class MapNode: SKSpriteNode {
                 createBlock(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift) - 600)
 
                 lowestY(-measurmentsGround*Double(shift) - 600)
+                
+                if (i == 5) {
+                    finishingX = end
+                    finishingY = -measurmentsGround*Double(shift) - 600.0 + measurmentsGround * 10
+                }
             }else{
                 //kuriamas virsuje
                 createBlockObstacle(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift))
                 
                 //kuriamas apacioje
-                createBlockObstacle(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift) - 600)
+                createBlock(1, blocksCountY: 10, blockWidth: measurmentsGround, blockHeight: measurmentsGround, startingPosX: end, startingPosY: -measurmentsGround*Double(shift) - 600)
             }
             
             end = end + Double(measurmentsGround)
@@ -233,7 +234,6 @@ class MapNode: SKSpriteNode {
             
         }
         return Double(pos)
-        
     }
     
     func createBlockObstacle(blocksCountX: Int, blocksCountY: Int, blockWidth: Double, blockHeight: Double, startingPosX: Double, startingPosY: Double){

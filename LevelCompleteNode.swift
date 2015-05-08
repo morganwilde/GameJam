@@ -11,7 +11,10 @@ import SpriteKit
 
 class LevelCompleteNode : SKSpriteNode, Contactable {
     
-    init(texture: SKTexture, size : CGSize) {
+    let level: Int
+    
+    init(texture: SKTexture, size : CGSize, level: Int) {
+        self.level = level
         super.init(texture: texture, color: nil, size: size)
         
         let body = SKPhysicsBody(rectangleOfSize: size)
@@ -30,7 +33,7 @@ class LevelCompleteNode : SKSpriteNode, Contactable {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        scene?.view?.presentScene(LevelCompleteScene(size: scene!.size, level: 1))
+        scene?.view?.presentScene(LevelCompleteScene(size: scene!.size, level: level))
     }
     
     func didEndContact(contact: SKPhysicsContact) {

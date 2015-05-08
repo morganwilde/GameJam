@@ -43,7 +43,7 @@ class Wall : Obstacle, Contactable, Affectable {
         if !isRaised {
             if let scene = scene as? GameScene {
                 isRaised = true
-                runAction(SKAction.moveToY(scene.size.height * 4 / 3, duration: 1 as NSTimeInterval),
+                runAction(SKAction.moveByX(0, y: scene.heroNode.size.height, duration: 1),
                     withKey: RAISE_ACTION)
             }
         }

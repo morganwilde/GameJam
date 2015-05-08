@@ -139,9 +139,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let wallWidth = 30 as CGFloat
         // Make the wall appear at the right side of the screen when standing on the button
         let wallX = buttonNode.position.x + buttonNode.frame.width + size.width / 2 - wallWidth / 2
-        let wallY = size.height / 2 + CGFloat(mapNode.measurmentsGround)
+        let wallY = size.height + CGFloat(mapNode.measurmentsGround)
         wallNode = Wall(color: UIColor.blueColor(),
-            size: CGSize(width: wallWidth, height: size.height),
+            size: CGSize(width: wallWidth, height: size.height * 2),
             position: CGPoint(x: wallX, y: wallY))
         mapNode.addChild(wallNode)
 
@@ -157,8 +157,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add level complete thingy
         let lvlCompleteTexture = SKTexture(imageNamed: "cube.png")
-        let lvlCompleteNode = LevelCompleteNode(texture: lvlCompleteTexture, size: CGSize(width: 43, height: 50))
-        lvlCompleteNode.position.x = CGFloat(mapNode.endMap) - lvlCompleteNode.size.width - 20
+        let lvlCompleteNode = LevelCompleteNode(texture: lvlCompleteTexture, size: CGSize(width: 43, height: 50), level: 1)
+        lvlCompleteNode.position.x = CGFloat(mapNode.startMap) - lvlCompleteNode.size.width - 20
         lvlCompleteNode.position.y = 100
         mapNode.addChild(lvlCompleteNode)
     }
